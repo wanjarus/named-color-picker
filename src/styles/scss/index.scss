@@ -1,0 +1,315 @@
+// Compiles to CSS.
+
+@import './imports/vars';
+
+.named-color-picker {
+  &,
+  * {
+    box-sizing:               border-box;
+  }
+
+  display:                    none;
+
+  //
+  top:                        0;
+  left:                       0;
+  z-index:                    $z-index;
+  position:                   absolute;
+
+  //
+  width:                      100vw;
+  height:                     100vh;
+
+  //
+  font-size:                  1rem;
+
+  > .-grid {
+    display:                  flex;
+    flex-flow:                row wrap;
+
+    //
+    width:                    100%;
+    height:                   100%;
+    overflow:                 hidden;
+
+    //
+    background:               $black-color;
+
+    > .-color {
+      flex:                   1 0 auto;
+
+      //
+      border-radius:         .1em;
+      border:                 2px solid transparent;
+
+      //
+      transition:             transform .125s;
+
+      &.-active,
+      &:hover {
+        transform:            scale(1.75);
+
+        //
+        border-color:         $white-color;
+        box-shadow:           0 0 0 0.05em transparentize($black-color, 0.75);
+      }
+
+      &.-search {
+        color:                $black-color;
+        background-color:     $white-color;
+
+        > svg {
+          width:              100%;
+          height:             auto;
+
+          //
+          vertical-align:     text-top;
+
+          > g {
+            fill:             currentColor;
+          }
+        }
+      }
+    }
+  }
+
+  > .-info {
+    display:                  none;
+
+    //
+    position:                 fixed;
+
+    //
+    padding:                 .5em;
+
+    //
+    border-radius:           .15em;
+    border:                   0.25em solid $white-color;
+    box-shadow:               0 0 0 0.15em transparentize($black-color, 0.75);
+
+    //
+    text-align:               center;
+
+    > .-title {
+      margin:                 0 0 1em;
+    }
+
+    > .-hex,
+    > .-rgb,
+    > .-hsl,
+    > .-hsv {
+      display:                block;
+
+      //
+      font-size:             .85em;
+      text-decoration:        none;
+      font-family:            monospace;
+
+      //
+      opacity:                0.5;
+      color:                  inherit;
+
+      &:hover {
+        opacity:              1;
+      }
+    }
+
+    > .-hex {
+      font-size:              1.25em;
+    }
+
+    > .-copied {
+      visibility:             hidden;
+
+      //
+      margin:                .5em 0 0;
+
+      //
+      font-size:             .85em;
+      line-height:            1em;
+      font-variant:           small-caps;
+    }
+
+    > .-select {
+      width:                  100%;
+      margin:                .5em 0 0;
+    }
+
+    &::after {
+      content:                '';
+
+      //
+      position:               absolute;
+
+      //
+      width:                  0;
+      height:                 0;
+
+      //
+      font-size:             .675em;
+    }
+
+    &.-arrow-top::after {
+      top:                   -1em;
+      left:                   calc(50% - 1em);
+
+      //
+      border-left:            1em solid transparent;
+      border-right:           1em solid transparent;
+      border-bottom:          1em solid $white-color;
+    }
+
+    &.-arrow-bottom::after {
+      bottom:                -1em;
+      left:                   calc(50% - 1em);
+
+      //
+      border-left:            1em solid transparent;
+      border-right:           1em solid transparent;
+      border-top:             1em solid $white-color;
+    }
+
+    &.-arrow-left::after {
+      left:                  -1em;
+      top:                    calc(50% - 1em);
+
+      //
+      border-top:             1em solid transparent;
+      border-bottom:          1em solid transparent;
+      border-right:           1em solid $white-color;
+    }
+
+    &.-arrow-left-top::after {
+      top:                   .5em;
+    }
+
+    &.-arrow-left-bottom::after {
+      top:                    auto;
+      bottom:                .5em;
+    }
+
+    &.-arrow-right::after {
+      right:                 -1em;
+      top:                    calc(50% - 1em);
+
+      //
+      border-top:             1em solid transparent;
+      border-bottom:          1em solid transparent;
+      border-left:            1em solid $white-color;
+    }
+
+    &.-arrow-right-top::after {
+      top:                   .5em;
+    }
+
+    &.-arrow-right-bottom::after {
+      top:                    auto;
+      bottom:                .5em;
+    }
+  }
+
+  > .-search-overlay {
+    display:                  none;
+
+    //
+    top:                      0;
+    left:                     0;
+    z-index:                  $z-index + 1;
+    position:                 fixed;
+
+    //
+    width:                    100%;
+    height:                   100%;
+
+    //
+    background:               transparentize($black-color, 0.25);
+  }
+
+  > .-search {
+    display:                  none;
+
+    //
+    top:                      20%;
+    left:                     50%;
+    z-index:                  $z-index + 2;
+    position:                 fixed;
+
+    //
+    width:                    30%;
+
+    //
+    border-radius:           .25em;
+    box-shadow:               0 0 0 0.05em transparentize($black-color, 0.75);
+
+    //
+    transform:                translate(-50%, -80%);
+
+    > select {
+      width:                  100%;
+
+      + .select2-container {
+        > .select2-dropdown {
+          z-index:            $z-index + 3;
+        }
+
+        .-color {
+          display:            inline-block;
+
+          //
+          vertical-align:     middle;
+
+          > .-swatch {
+            display:          inline-block;
+
+            //
+            width:            1em;
+            height:           1em;
+
+            //
+            border-radius:   .25em;
+
+            //
+            vertical-align:   text-top;
+          }
+        }
+      }
+    }
+  }
+
+  > .-textarea {
+    top:                     -99999px;
+    left:                    -99999px;
+    position:                 fixed;
+
+    //
+    width:                    1px;
+    height:                   1px;
+    overflow:                 hidden;
+  }
+}
+
+.named-color-picker-swatch {
+  display:                    inline-block;
+  vertical-align:             middle;
+
+  &.-swatch-before {
+    margin:                   0 .5em 0 0;
+  }
+
+  &.-swatch-after {
+    margin:                   0 0 0 .5em;
+  }
+
+  > svg {
+    display:                  inline-block;
+    vertical-align:           middle;
+
+    //
+    width:                    1em;
+    height:                   auto;
+
+    > g {
+      fill:                   currentColor;
+    }
+  }
+}

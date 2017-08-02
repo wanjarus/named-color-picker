@@ -1,0 +1,304 @@
+# Text/Binary ----------------------------------------------------------------------------------------------------------
+
+# Default
+
+* text=auto
+
+# Text
+
+*.md text
+*.txt text
+
+# Logs
+
+*.log text
+
+# YAML
+
+*.yml
+*.yaml
+
+# Properties.
+
+*.properties text
+
+# Translations
+
+*.pot text
+
+# SQL
+
+*.sql text
+*.sqlite text
+
+# Templates
+
+*.tmpl text
+*.tpl text
+
+# Config
+
+*.admins text
+*.cfg text
+*.cnf text
+*.conf text
+*.htaccess text
+*.htaccess-apache text
+*.htpasswd text
+*.ini text
+
+# CSS
+
+*.css text
+*.sass text
+*.scss text
+*.less text
+*.css.map text
+
+# JavaScript
+
+*.js text
+*.ts text
+*.jsx text
+*.tsx text
+*.json text
+*.json5 text
+*.js.map text
+*.babelrc text
+*.npmrc text
+
+# Applescript
+
+*.applescript text
+*.scpt binary
+
+# PHP
+
+*.inc text
+*.php text
+*.php4 text
+*.php5 text
+*.php6 text
+*.phps text
+*.x-php text
+
+# ASP
+
+*.asp text
+*.aspx text
+
+# Perl
+
+*.cgi text
+*.pl text
+
+# HTML/XML
+
+*.dtd text
+*.hta text
+*.htc text
+*.htm text
+*.html text
+*.shtml text
+*.xhtml text
+*.xml text
+*.xsl text
+*.xslt text
+*.xsd text
+
+# Documents
+
+*.csv text
+*.tsv text
+*.doc binary
+*.docx binary
+*.odt binary
+*.pdf binary
+*.rtf binary
+*.xls binary
+
+# Images
+
+*.ai binary
+*.bmp binary
+*.eps binary
+*.gif binary
+*.ico binary
+*.jpe binary
+*.jpeg binary
+*.jpg binary
+*.png binary
+*.webp binary
+*.psd binary
+*.svg text
+*.tif binary
+*.tiff binary
+*.pspimage binary
+
+# Audio
+
+*.mid binary
+*.midi binary
+*.mp3 binary
+*.wav binary
+*.wma binary
+
+# Video
+
+*.avi binary
+*.flv binary
+*.ogg binary
+*.ogv binary
+*.mp4 binary
+*.mov binary
+*.mpg binary
+*.mpeg binary
+*.qt binary
+*.webm binary
+*.wmv binary
+*.fla binary
+*.swf binary
+*.blend binary
+
+# Fonts
+
+*.eot binary
+*.otf binary
+*.ttf binary
+*.woff binary
+
+# Archives
+
+*.7z binary
+*.dmg binary
+*.gtar binary
+*.gz binary
+*.iso binary
+*.jar binary
+*.phar binary
+*.rar binary
+*.tar binary
+*.tgz binary
+*.zip binary
+
+# Other
+
+*.bat text
+*.bash text
+*.bin binary
+*.class binary
+*.com binary
+*.dll binary
+*.exe binary
+*.sh text
+*.pem text
+*.so binary
+
+# Export Ignore — this follows `.gitignore` almost exactly. ------------------------------------------------------------
+# Exceptions: don't ignore `node_modules/`, `jspm_packages/`, `bower_components/` or `vendor/`.
+
+# Local
+
+.~* export-ignore
+._* export-ignore
+
+# Logs
+
+*.log export-ignore
+
+# Backups
+
+*~ export-ignore
+*.bak export-ignore
+
+# Vagrant
+
+.vagrant/ export-ignore
+
+# TypeScript
+
+typings/ export-ignore
+
+# IntelliJ
+
+.idea/ export-ignore
+
+# Sublime
+
+*.sublime-project export-ignore
+*.sublime-workspace export-ignore
+
+# SASS
+
+.sass-cache/ export-ignore
+
+# Elastic Beanstalk
+
+.elasticbeanstalk/ export-ignore
+
+# CTAGs
+
+*.ctags export-ignore
+*.tags export-ignore
+
+# VCS
+
+.git/ export-ignore
+
+.svn/ export-ignore
+_svn/ export-ignore
+
+CVS/ export-ignore
+.cvsignore export-ignore
+
+.bzr/ export-ignore
+.bzrignore export-ignore
+
+.hg/ export-ignore
+.hgignore export-ignore
+
+SCCS/ export-ignore
+RCS/ export-ignore
+
+# PC Files
+
+$RECYCLE.BIN/ export-ignore
+Desktop.ini export-ignore
+Thumbs.db export-ignore
+ehthumbs.db export-ignore
+
+# Mac Files
+
+.AppleDB export-ignore
+.AppleDouble export-ignore
+.AppleDesktop export-ignore
+.com.apple.timemachine.donotpresent export-ignore
+Network Trash Folder export-ignore
+Temporary Items export-ignore
+.LSOverride export-ignore
+.Spotlight-V100 export-ignore
+.VolumeIcon.icns export-ignore
+.TemporaryItems export-ignore
+.fseventsd export-ignore
+.DS_Store export-ignore
+.Trashes export-ignore
+.apdisk export-ignore
+Icon? export-ignore
+Icons -export-ignore
+._* export-ignore
+
+# Export Ignore — in addition to what we have in `.gitignore`. ---------------------------------------------------------
+
+# Assets
+
+/assets/ export-ignore
+
+# LFS Storage (Assets) -------------------------------------------------------------------------------------------------
+
+/assets/** filter=lfs diff=lfs merge=lfs -text
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+# <custom>
+#   Put your rules in custom comment markers.
+# </custom>

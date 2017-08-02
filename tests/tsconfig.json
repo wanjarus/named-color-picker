@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+
+  "compilerOptions": {
+    "strict": true,
+
+    "target": "ES6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    "declaration": false,
+    "outDir": "/dev/null",
+    "declarationDir": "/dev/null",
+
+    "typeRoots": [
+      "../types",
+      "../typings",
+      "../node_modules/@types"
+    ]
+  },
+  "main": "./index.ts",
+
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "./**/_*",
+    "./**/_*/*"
+  ]
+}

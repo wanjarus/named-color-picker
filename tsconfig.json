@@ -1,0 +1,32 @@
+{
+  "compileOnSave": true,
+
+  "compilerOptions": {
+    "strict": true,
+
+    "target": "ES6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    "declaration": true,
+    "outDir": "./src/scripts/js",
+    "declarationDir": "./dist/scripts/ts/types",
+
+    "typeRoots": [
+      "./types",
+      "./typings",
+      "./node_modules/@types"
+    ]
+  },
+  "main": "./src/scripts/ts/index.ts",
+
+  "include": [
+    "./src/scripts/ts/**/*.ts",
+    "./src/scripts/ts/**/*.tsx",
+    "./src/scripts/ts/**/*.d.ts"
+  ],
+  "exclude": [
+    "./src/scripts/ts/**/_*",
+    "./src/scripts/ts/**/_*/*"
+  ]
+}

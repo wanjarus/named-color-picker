@@ -1,0 +1,37 @@
+sudo: false # Faster (docker container-based).
+dist: trusty # Upgrade to Trusty containers.
+language: node_js # Use Node presets.
+
+env: # Environment variables.
+  global: # For all builds.
+    - NODE_ENV=ci
+
+matrix: # Test matrix.
+  include: # Variations to include.
+    - node_js: node # Latest release.
+    - node_js: lts/* # Latest LTS release.
+    - node_js: 6.10.3 # Oldest release.
+  fast_finish: true # Allowed failures.
+
+git: # Git clone configuration.
+  lfs_skip_smudge: true # Skip assets.
+
+branches: # Git branches.
+  except: # Exclude.
+    - gh-pages
+
+install: # Installation.
+  - npm install gulp-cli --global
+  - npm install # Dependencies.
+
+script: # Sequence of tests.
+  - gulp build # Build project.
+  - gulp test # Run gulp test suite.
+
+notifications: # Slack notifications.
+  slack: websharks:EpVKoMF6MQKjLKVw0CAX33Og
+  email: false # No email alerts.
+
+cache: # Cache node modules.
+  directories:
+    - "node_modules"

@@ -1,0 +1,105 @@
+{
+  "license": "MIT",
+  "version": "0.0.0",
+  "author": {
+    "name": "Jason Caldwell",
+    "twitter": "jaswrks",
+    "url": "https://jaswrks.com"
+  },
+  "organization": {
+    "name": "‹src.works/›",
+    "twitter": "_src_works",
+    "url": "https://src.works"
+  },
+  "contributors": [
+    {
+      "name": "‹src.works/›",
+      "twitter": "_src_works",
+      "url": "https://src.works"
+    },
+    {
+      "name": "Jason Caldwell",
+      "twitter": "jaswrks",
+      "url": "https://jaswrks.com"
+    }
+  ],
+  "name": "@src-works/named-color-picker",
+  "repository": "src-works/named-color-picker",
+  "homepage": "https://github.com/src-works/named-color-picker",
+  "bugs": "https://github.com/src-works/named-color-picker/issues",
+  "title": "Named Color Picker",
+  "description": "Named color picker w/ 2,065 named colors.",
+  "keywords": [
+    "named",
+    "color",
+    "picker",
+    "vars",
+    "names",
+    "colors",
+    "pickers",
+    "variables"
+  ],
+  "suggestDev": false,
+  "preferGlobal": false,
+  "scripts": {
+    "test": "gulp build && gulp test"
+  },
+  "main": "./src/scripts/js/index.js",
+  "types": "./dist/scripts/ts/types/index.d.ts",
+  "browserDeps": [
+    "https://unpkg.com/jquery@3.2.1/dist/jquery.min.js"
+  ],
+  "leanBrowserDeps": [
+    "https://unpkg.com/jquery@3.2.1/dist/jquery.min.js",
+    "https://unpkg.com/tinycolor2@1.4.1/dist/tinycolor-min.js",
+    "https://unpkg.com/select2@4.0.3/dist/js/select2.min.js",
+    "https://unpkg.com/select2@4.0.3/dist/css/select2.min.css"
+  ],
+  "browser": "./dist/scripts/js/index.web.min.js",
+  "gulp": {
+    "buildCommands": [],
+    "campaign": {
+      "type": "donate",
+      "payUrl": "",
+      "pwycUrl": "",
+      "bonusFeatures": {}
+    },
+    "srcBrowserify": {
+      "srcJsFiles": {
+        "ignoreModules": [
+          "jquery"
+        ],
+        "leanIgnoreModules": [
+          "jquery",
+          "tinycolor2",
+          "select2"
+        ]
+      }
+    },
+    "loadVars": {},
+    "vars": {}
+  },
+  "cpu": [
+    "!ia32"
+  ],
+  "engines": {
+    "node": ">=6.10.3",
+    "npm": ">=3.10.10"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "tinycolor2": "^1.4.1",
+    "select2": "^4.0.3",
+    "@src-works/window-var": "^1.0.8",
+    "@src-works/named-color-vars": "^1.0.14"
+  },
+  "devDependencies": {
+    "@types/jquery": "^2.0.45",
+    "@types/tinycolor2": "^1.1.1",
+    "@types/select2": "^4.0.35",
+    "@src-works/npm-ts-gulp": "latest"
+  },
+  "greenkeeper": {
+    "ignore": []
+  }
+}
