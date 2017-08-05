@@ -6,60 +6,75 @@
   <a href="https://github.com/src-works/named-color-picker/blob/master/CHANGELOG.md"><img src="https://img.shields.io/badge/%f0%9f%93%a6_version-0.0.0-orange.svg" alt="latest version" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/dist/scripts/js/index.web.min.js"><img src="https://img.shields.io/github/size/src-works/named-color-picker/dist/scripts/js/index.web.min.js.svg" alt="browser script size" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/dist/scripts/ts/types/index.d.ts"><img src="https://img.shields.io/badge/%f0%9f%93%98-typescript%2fjs-2882C3.svg" alt="typescript/js" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/issues"><img src="https://img.shields.io/github/issues/src-works/named-color-picker.svg" alt="open issues" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a><br />
   <a href="https://greenkeeper.io/"><img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg" alt="greenkeeper" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://david-dm.org/src-works/named-color-picker"><img src="https://img.shields.io/david/src-works/named-color-picker.svg" alt="dependency status" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://twitter.com/_src_works"><img src="https://img.shields.io/twitter/follow/_src_works.svg?style=social&amp;label=Follow%20%40_src_works" alt="follow on twitter" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker"><img src="https://img.shields.io/github/followers/src-works.svg?style=social&amp;label=Follow" alt="follow on github" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/fork"><img src="https://img.shields.io/github/forks/src-works/named-color-picker.svg?style=social&amp;label=Fork" alt="fork" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a>
 </p>
+
 <p align="center" style="text-align:center;">
-  <a href="https://src.works/donate?utm_source=repo&amp;utm_medium=organic&amp;utm_term=src-works%2Fnamed-color-picker&amp;utm_campaign=donate%3Aclient-side&amp;utm_content=sub-header"><img src="https://src.works/wp-content/uploads/2017/07/dby-donate.svg?v=0.0.1" alt="developed by ‹src.works/›" width="100%" height="auto" style="width:100%; height:auto;" /></a>
+  <a href="https://src.works/donate?utm_source=repo&amp;utm_medium=organic&amp;utm_term=src-works%2Fnamed-color-picker&amp;utm_campaign=donate%3Aeither-side&amp;utm_content=sub-header"><img src="https://src.works/wp-content/uploads/2017/07/dby-donate.svg?v=0.0.1" alt="developed by ‹src.works/›" width="100%" height="auto" style="width:100%; height:auto;" /></a>
 </p>
 
 ## Installation Options
 
-### Install via <img src="https://src.works/wp-content/uploads/2017/05/npm.svg?v=0.0.1" alt="NPM" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" /> [@src-works/named-color-picker](https://www.npmjs.com/package/@src-works/named-color-picker)
+### Install via <img src="https://src.works/wp-content/uploads/2017/05/npm.svg?v=0.0.1" alt="NPM" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" /> [package](https://www.npmjs.com/package/@src-works/named-color-picker)
 
 ```bash
 $ npm install @src-works/named-color-picker --save;
 ```
 
-### Install via <img src="https://src.works/wp-content/uploads/2017/06/yarn.svg?v=0.0.1" alt="Yarn" valign="middle" width="auto" height="24" style="vertical-align:middle; width:auto; height:24px;" /> Yarn [@src-works/named-color-picker](https://yarnpkg.com/en/package/@src-works/named-color-picker)
+### Or install via <img src="https://src.works/wp-content/uploads/2017/06/yarn.svg?v=0.0.1" alt="Yarn" valign="middle" width="auto" height="24" style="vertical-align:middle; width:auto; height:24px;" /> Yarn [package](https://yarnpkg.com/en/package/@src-works/named-color-picker)
 
 ```bash
 $ yarn add @src-works/named-color-picker;
 ```
 
-### <img src="https://src.works/wp-content/uploads/2017/05/cdn.svg?v=0.0.1" alt="CDN" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" /> Or, install via CDN [@src-works/named-color-picker](https://unpkg.com/@src-works/named-color-picker/dist/)
+### Or install via [unpkg.com](https://unpkg.com/@src-works/named-color-picker/dist/) CDN <img src="https://src.works/wp-content/uploads/2017/05/cdn.svg?v=0.0.1" alt="CDN" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" />
 
 ```html
+<!-- Dependencies. -->
+<link href="https://unpkg.com/select2@4.0.3/dist/css/select2.min.css" rel="stylesheet" integrity="sha384-HIipfSYbpCkh5/1V87AWAeR5SUrNiewznrUrtNz1ux4uneLhsAKzv/0FnMbj3m6g" crossorigin="anonymous" />
 <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/tinycolor2@1.4.1/dist/tinycolor-min.js" integrity="sha384-a5Bm1aj9jmRF0rquE7qZJ52rHZMfCJnKtC08F0GSTdT/qDFFuko4EzYOyluc7CKg" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/select2@4.0.3/dist/js/select2.min.js" integrity="sha384-222hzbb8Z8ZKe6pzP18nTSltQM3PdcAwxWKzGOKOIF+Y3bROr5n9zdQ8yTRHgQkQ" crossorigin="anonymous"></script>
+
+<!-- The package itself. -->
 <script src="https://unpkg.com/@src-works/named-color-picker@0.0.0" integrity="" crossorigin="anonymous"></script>
 ```
 
-<p align="center" style="text-align:center;">
-  <img src="https://src.works/wp-content/uploads/2017/05/browser-icons.svg?v=0.0.1" alt="Browsers" width="100%" height="auto" style="width:100%; height:auto;" />
-</p>
+#### Mean Alternative (Heavier Stand-Alone Library)
 
-**IMPORTANT TIP:** If you want to support IE <= 11 (prior to Edge), older versions of Android, and [much older versions](https://polyfill.io/v2/docs/features/) of other browsers, insert this polyfill before all other script tags. The [polyfill.io](https://polyfill.io/v2/docs/) service fills ES6 features that a user's browser is lacking, based on both UA & feature detection.
+In this variation, the package itself is larger because it also contains the dependencies. That does make it easier to use, but you lose the ability to separate the dependencies from the package itself. For example, if you need one of this package's dependencies in another part of your application (for something unrelated to this package), it's better to include that dependency yourself so it can be shared by all.
 
 ```html
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6&amp;flags=gated"></script>
+<script src="https://unpkg.com/@src-works/named-color-picker@0.0.0/dist/scripts/js/index.web.min.mean.js" integrity="" crossorigin="anonymous"></script>
 ```
 
-For a list of all supported browsers, see: [browserl.ist#src-works/named-color-picker](http://browserl.ist/?q=%3E%201%25#src-works/named-color-picker)
+## Works in All [Modern Browsers](http://browserl.ist/?q=%3E%201%25#src-works/named-color-picker)
 
+<p align="center" style="text-align:center;">
+  <a href="http://browserl.ist/?q=%3E%201%25#src-works/named-color-picker"><img src="https://src.works/wp-content/uploads/2017/05/browser-icons.svg?v=0.0.1" alt="Browsers" width="100%" height="auto" style="width:100%; height:auto;" /></a>
+</p>
 
+If you need to support IE <= 11 (prior to Edge), older versions of Android, and [much older versions](https://polyfill.io/v2/docs/features/) of other browsers, you can insert this polyfill before all other script tags. The [polyfill.io](https://polyfill.io/v2/docs/) service fills ES6 features that a user's browser is lacking, based on both UA & feature detection.
+
+```html
+<!-- Before ALL other script tags in your document. -->
+<!-- Only needed if you want to support much older browsers. -->
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6&amp;flags=gated"></script>
+```
 
 ---
 
 <p align="center" style="text-align:center;">
-  <a href="https://src.works/subscribe?utm_source=repo&amp;utm_medium=organic&amp;utm_term=src-works%2Fnamed-color-picker&amp;utm_campaign=donate%3Aclient-side&amp;utm_content=built-with:image"><img src="https://src.works/wp-content/uploads/2017/05/built-with.svg?v=0.0.1" alt="Built with TypeScript/JavaScript, Babel, NodeJS, NPM, and Sass" width="100%" height="auto" style="width:100%; height:auto;" /></a>
+  <a href="https://src.works/subscribe?utm_source=repo&amp;utm_medium=organic&amp;utm_term=src-works%2Fnamed-color-picker&amp;utm_campaign=donate%3Aeither-side&amp;utm_content=built-with:image"><img src="https://src.works/wp-content/uploads/2017/08/built-with.svg?v=0.0.1" alt="Built with TypeScript/JavaScript, Babel, NodeJS, NPM, and Sass" width="100%" height="auto" style="width:100%; height:auto;" /></a>
 </p>
 
 ## Commercial Use
 
 <img src="https://www.gravatar.com/avatar/c8e0057f78fa5b54326cd437494b87e9?s=256&v=0.0.1" alt="@jaswrks" align="right" width="12%" height="auto" hspace="30" style="float:right; width:12%; height:auto; margin-left:30px;" />
 
-This software is created, documented and maintained by [Jason Caldwell](https://twitter.com/jaswrks) ([`@jaswrks`](https://twitter.com/jaswrks)) and a small team of talented developers at [‹src.works/›](https://src.works). It's open source, but if you use it commercially, please [**pay what you can**](https://src.works/donate?utm_source=repo&utm_medium=organic&utm_term=src-works%2Fnamed-color-picker&utm_campaign=donate%3Aclient-side&utm_content=commercial-use).
+This software is created, documented and maintained by [Jason Caldwell](https://twitter.com/jaswrks) ([`@jaswrks`](https://twitter.com/jaswrks)) and a small team of talented developers at [‹src.works/›](https://src.works). It's open source, but if you use it commercially, please [**pay what you can**](https://src.works/donate?utm_source=repo&utm_medium=organic&utm_term=src-works%2Fnamed-color-picker&utm_campaign=donate%3Aeither-side&utm_content=commercial-use).
 
 ## Development Channels
 
-**Suggestions:** Always use the latest stable version in production. If you want upcoming changes ahead of time use the `@dev` or `@rc` tag, but please do so at your own risk. The `@dev` and `@rc` tags are potentially unstable at various times throughout a development cycle, and therefore should not be used in production.
+Always use the latest stable version in production. If you want upcoming changes ahead of time use the `@dev` or `@rc` tag, but please do so at your own risk. The `@dev` and `@rc` tags are potentially unstable at various times throughout a development cycle, and therefore should not be used in production.
 
 <table width="100%" align="center" style="width:100%; margin-left:auto; margin-right:auto;">
   <thead>
@@ -232,13 +247,7 @@ This software is created, documented and maintained by [Jason Caldwell](https://
 <script src="https://unpkg.com/@src-works/named-color-picker@0.0.0" integrity="" crossorigin="anonymous"></script>
 ```
 
-**Tip:** Don't use an SRI hash with a tag like `@dev`, `@rc`, or `@latest`. These special tags reference a version dynamically, and are therefore constantly evolving (e.g., the `@latest` version will change when the next version is released). So a tagged release URL may render an SRI hash invalid in the future. If you need the SRI integrity hash, use a specific `@x.x.x` version in the URL instead of a tag, as seen ↑ above.
-
-```html
-<script src="https://unpkg.com/@src-works/named-color-picker@dev"></script>
-<script src="https://unpkg.com/@src-works/named-color-picker@rc"></script>
-<script src="https://unpkg.com/@src-works/named-color-picker@latest"></script>
-```
+_**Tip:** Don't use an SRI hash with a tag like `@dev`, `@rc`, or `@latest`. Tags reference a version dynamically; e.g., the `@latest` tag will point to an updated copy once the next version is released. So a tagged release URL may render an SRI invalid. If you need the SRI, use a specific `@x.x.x` version in the URL instead of a tag._
 
 ## MIT License
 
@@ -252,12 +261,10 @@ For full details see: [CHANGELOG.md](https://github.com/src-works/named-color-pi
 
 New versions are released following [semver.org](http://semver.org/) guidelines.
 
-## Lab Rats Needed
-
-<p align="center" style="text-align:center;">
-  <a href="https://src.works/subscribe?utm_source=repo&amp;utm_medium=organic&amp;utm_term=src-works%2Fnamed-color-picker&amp;utm_campaign=donate%3Aclient-side&amp;utm_content=lab-rats:subscribe"><img src="https://src.works/wp-content/uploads/2017/05/lab-rats-subscribe.svg?v=0.0.1" alt="Lab Rats Subscribe" width="100%" height="auto" style="width:100%; height:auto;" /></a>
-</p>
-
 ## Pull Requests Welcome
 
 <a href="https://github.com/src-works/named-color-picker/fork"><img src="https://img.shields.io/github/forks/src-works/named-color-picker.svg?style=social&amp;label=Fork" alt="fork" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> the `master` branch at GitHub and submit your changes for review.
+
+<p align="center" style="text-align:center;">
+  <a href="https://src.works/subscribe?utm_source=repo&amp;utm_medium=organic&amp;utm_term=src-works%2Fnamed-color-picker&amp;utm_campaign=donate%3Aeither-side&amp;utm_content=lab-rats:subscribe"><img src="https://src.works/wp-content/uploads/2017/05/lab-rats-subscribe.svg?v=0.0.1" alt="Lab Rats Subscribe" width="100%" height="auto" style="width:100%; height:auto;" /></a>
+</p>

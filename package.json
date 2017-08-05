@@ -47,13 +47,10 @@
   "main": "./src/scripts/js/index.js",
   "types": "./dist/scripts/ts/types/index.d.ts",
   "browserDeps": [
-    "https://unpkg.com/jquery@3.2.1/dist/jquery.min.js"
-  ],
-  "leanBrowserDeps": [
     "https://unpkg.com/jquery@3.2.1/dist/jquery.min.js",
     "https://unpkg.com/tinycolor2@1.4.1/dist/tinycolor-min.js",
-    "https://unpkg.com/select2@4.0.3/dist/js/select2.min.js",
-    "https://unpkg.com/select2@4.0.3/dist/css/select2.min.css"
+    "https://unpkg.com/select2@4.0.3/dist/css/select2.min.css",
+    "https://unpkg.com/select2@4.0.3/dist/js/select2.min.js"
   ],
   "browser": "./dist/scripts/js/index.web.min.js",
   "gulp": {
@@ -66,10 +63,7 @@
     },
     "srcBrowserify": {
       "srcJsFiles": {
-        "ignoreModules": [
-          "jquery"
-        ],
-        "leanIgnoreModules": [
+        "excludeModules": [
           "jquery",
           "tinycolor2",
           "select2"
@@ -87,17 +81,17 @@
     "npm": ">=3.10.10"
   },
   "dependencies": {
+    "@src-works/named-color-vars": "^1.0.16",
+    "@src-works/window-var": "^1.0.10",
     "jquery": "^3.2.1",
-    "tinycolor2": "^1.4.1",
     "select2": "^4.0.3",
-    "@src-works/window-var": "^1.0.8",
-    "@src-works/named-color-vars": "^1.0.14"
+    "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
+    "@src-works/npm-ts-gulp": "^1.0.55",
     "@types/jquery": "^2.0.45",
-    "@types/tinycolor2": "^1.1.1",
     "@types/select2": "^4.0.35",
-    "@src-works/npm-ts-gulp": "latest"
+    "@types/tinycolor2": "^1.1.1"
   },
   "greenkeeper": {
     "ignore": []

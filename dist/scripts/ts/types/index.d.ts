@@ -9,9 +9,13 @@ export declare class Instance {
     protected $element: JQuery;
     protected elementTagName: string;
     protected elementTagType: string;
+    protected elementOriginalTitleAttr: undefined | string;
+    protected elementOriginalCssColor: undefined | string;
+    protected elementOriginalCssBackground: undefined | string;
     protected $swatch: JQuery;
     constructor(element: JQuery | HTMLElement, options?: t.OptionsArg);
     protected setupSwatch(): void;
+    protected onElementAlter(e: JQueryEventObject): void;
     protected onSwatchClick(e: JQueryEventObject): void;
     protected onSelect(color: t.Color, picker: Picker.Instance): void;
     protected destroy(keepPicker?: boolean): void;

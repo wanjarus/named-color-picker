@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Demo</title>
+
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://src.works/wp-content/themes/src-works/src/client-s/css/offsite/index.min.css" />
+
+    
+      <link href="https://unpkg.com/select2@4.0.3/dist/css/select2.min.css" rel="stylesheet" integrity="sha384-HIipfSYbpCkh5/1V87AWAeR5SUrNiewznrUrtNz1ux4uneLhsAKzv/0FnMbj3m6g" crossorigin="anonymous" />
+    
+
+    
+  </head>
+
+  <body>
+    <a-theme>
+      <a-foundation>
+        <a-slab>
+          <a-structure>
+            <structure-body>
+              <a-container>
+                
+
+
+<content-body class="#max-w:65% #center #m:v2">
+  <h1>Named Color Picker Demos</h1>
+
+  <a-tile class="b#blue">
+    <h2>Form Input (type="color")</h3>
+    Choose Color: <input type="color" />
+
+    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; /&gt;
+&lt;script&gt;$(&#39;input[type=&quot;color&quot;]&#39;).namedColorPicker();&lt;/script&gt;
+</code></pre>
+  </a-tile>
+
+  <a-tile class="b#green">
+    <h2>Form Input (type="text")</h3>
+    Enter a Color: <input type="text" /><br />
+    <em>Or choose a named color using the swatch.</em>
+
+    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;text&quot; /&gt;
+&lt;script&gt;$(&#39;input[type=&quot;text&quot;]&#39;).namedColorPicker();&lt;/script&gt;
+</code></pre>
+  </a-tile>
+
+  <a-brick>
+    <h2 id="j2h.configuration-options">Configuration Options</h2>
+<h3 id="j2h.full-example-showing-all-config-keys">Full Example Showing All Config Keys</h3>
+<pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;text&quot; /&gt;
+
+&lt;script&gt;
+$(&#39;input[type=&quot;text&quot;]&#39;)
+  .namedColorPicker({
+    mode: &#39;auto&#39;,
+    openSearch: false,
+    titleizeElement: true,
+    colorizeElement: true,
+    i18n: {
+      copied: &#39;copied&#39;,
+      select: &#39;Select&#39;,
+      searchColors: &#39;Search Colors&#39;,
+    },
+});
+&lt;/script&gt;
+</code></pre><h3 id="j2h.config-option-documentation">Config. Option Documentation</h3>
+<dl>
+<dt><code>mode</code> (default: <code>auto</code>)</dt>
+<dd>Can be <code>auto</code>, <code>swatch-before</code>, <code>swatch-after</code>, or <code>swatch-only</code>.</dd>
+<dt><code>openSearch</code> (default: <code>false</code>)</dt>
+<dd>Can be <code>true</code> or <code>false</code> to automatically open the search box.</dd>
+<dt><code>titlelizeElement</code> (default: <code>true</code>)</dt>
+<dd>Can be <code>true</code> or <code>false</code>. If <code>true</code>, automatically set the element’s <code>title=&quot;&quot;</code> attribute to a description of the selected color.</dd>
+<dt><code>colorizeElement</code> (default: <code>true</code>)</dt>
+<dd>Can be <code>true</code> or <code>false</code>. If <code>true</code>, automatically set the element’s color and background properties to the selected color.</dd>
+<dt><code>i18n</code> (i)nternationalizatio(n)</dt>
+<dd>See example above. You can fill-in the strings if you need to translate. However, altering the name of each color is not a feature at this time.</dd>
+</dl>
+
+  </a-brick>
+
+</content-body>
+
+
+
+              </a-container>
+            </structure-body>
+          </a-structure>
+        </a-slab>
+      </a-foundation>
+    </a-theme>
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6&amp;flags=gated"></script>
+    <script src="https://src.works/wp-content/themes/src-works/src/client-s/js/offsite/index.min.js"></script>
+
+    
+      <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/tinycolor2@1.4.1/dist/tinycolor-min.js" integrity="sha384-a5Bm1aj9jmRF0rquE7qZJ52rHZMfCJnKtC08F0GSTdT/qDFFuko4EzYOyluc7CKg" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/select2@4.0.3/dist/js/select2.min.js" integrity="sha384-222hzbb8Z8ZKe6pzP18nTSltQM3PdcAwxWKzGOKOIF+Y3bROr5n9zdQ8yTRHgQkQ" crossorigin="anonymous"></script>
+      <script src="../dist/scripts/js/index.web.min.js"></script>
+    
+
+    
+  <script>
+    $('input[type="color"]').namedColorPicker();
+    $('input[type="text"]').namedColorPicker();
+  </script>
+
+
+  </body>
+</html>
+

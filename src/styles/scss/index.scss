@@ -292,6 +292,9 @@
   display:                    inline-block;
   vertical-align:             middle;
 
+  //
+  cursor:                     pointer;
+
   &.-swatch-before {
     margin:                   0 .5em 0 0;
   }
@@ -305,8 +308,13 @@
     vertical-align:           middle;
 
     //
-    width:                    1em;
-    height:                   auto;
+    height:                   1.5em;
+    width:                    auto;
+
+    //
+    border-radius:           .25em;
+    border:                   1px solid $white-color;
+    box-shadow:               1px 1px 0 0 rgba($black-color, 0.15);
 
     > g {
       fill:                   currentColor;
