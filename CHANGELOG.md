@@ -1,3 +1,8 @@
+<a name="0.0.3"></a>
+## [0.0.3](https://github.com/src-works/named-color-picker/compare/0.0.2...0.0.3) (2017-08-12)
+
+
+
 <a name="0.0.2"></a>
 ## [0.0.2](https://github.com/src-works/named-color-picker/compare/0.0.1...0.0.2) (2017-08-12)
 
