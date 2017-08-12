@@ -1,3 +1,3 @@
-The named color picker takes a somewhat different approach to choosing a color. Instead of a color spectrum/wheel, colors are selected from a fullscreen grid by name, or searched for in a dropdown, also by name. (**[DEMO](https://src-works.github.com/named-color-picker/docs/index.html)**)
+The named color picker takes a somewhat different approach to choosing a color. Instead of a color spectrum/wheel, colors are selected from a fullscreen grid by name, or searched for in a dropdown, also by name. (**[DEMO](https://src-works.github.io/named-color-picker/docs/)**)
 
 There are 2,065 named color variables (no duplicate names, no duplicate colors). Color names courtesy of [Resene Paints](http://www.resene.co.nz/) and the [XKCD Color Survey](https://blog.xkcd.com/2010/05/03/color-survey-results/) (minus potentially-offensive color names & negative connotations). Additional color names include those supported by all major browsers in the CSS3 spec.
