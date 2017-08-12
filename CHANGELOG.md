@@ -1,3 +1,13 @@
+<a name="0.0.4"></a>
+## [0.0.4](https://github.com/src-works/named-color-picker/compare/0.0.3...0.0.4) (2017-08-12)
+
+
+### Bug Fixes
+
+* Remove text decoration from select button. ([9c2a00d](https://github.com/src-works/named-color-picker/commit/9c2a00d))
+
+
+
 <a name="0.0.3"></a>
 ## [0.0.3](https://github.com/src-works/named-color-picker/compare/0.0.2...0.0.3) (2017-08-12)
 

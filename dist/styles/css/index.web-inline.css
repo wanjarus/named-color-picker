@@ -86,7 +86,7 @@ html.named-color-picker-open body {
   display: block;
   font-size: .85em;
   text-decoration: none;
-  font-family: monospace;
+  font-family: 'operator mono', monospace;
   opacity: 0.5;
   color: inherit;
   transition: all .25s;
@@ -127,6 +127,7 @@ html.named-color-picker-open body {
   border-radius: .15em;
   border: .063em solid;
   opacity: .9;
+  text-decoration: none;
   text-transform: uppercase;
 }
 
@@ -269,6 +270,7 @@ html.named-color-picker-open body {
   margin: -.75em 0;
   width: 1.75em;
   height: 1.75em;
+  text-decoration: none;
   outline: none;
   -webkit-tap-highlight-color: none;
   border-radius: .15em;
