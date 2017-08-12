@@ -2,6 +2,13 @@
 
 @import './imports/vars';
 
+html.named-color-picker-open {
+  &,
+  body {
+    overflow:                 hidden !important;
+  }
+}
+
 .named-color-picker {
   &,
   * {
@@ -13,8 +20,8 @@
   //
   top:                        0;
   left:                       0;
+  position:                   fixed;
   z-index:                    $z-index;
-  position:                   absolute;
 
   //
   width:                      100vw;
@@ -36,10 +43,10 @@
     background:               $black-color;
 
     > .-color {
-      flex:                   1 0 auto;
+      flex:                   0 0 auto;
 
       //
-      border-radius:         .1em;
+      border-radius:         .15em;
       border:                 2px solid transparent;
 
       //
@@ -59,11 +66,11 @@
         background-color:     $white-color;
 
         > svg {
-          width:              100%;
-          height:             auto;
+          display:            block;
 
           //
-          vertical-align:     text-top;
+          width:              100%;
+          height:             auto;
 
           > g {
             fill:             currentColor;
@@ -75,23 +82,23 @@
 
   > .-info {
     display:                  none;
-
-    //
     position:                 fixed;
 
     //
-    padding:                 .5em;
+    min-width:                15em;
+    padding:                 .75em 1em 1em;
+
+    //
+    text-align:               center;
 
     //
     border-radius:           .15em;
     border:                   0.25em solid $white-color;
     box-shadow:               0 0 0 0.15em transparentize($black-color, 0.75);
 
-    //
-    text-align:               center;
-
     > .-title {
-      margin:                 0 0 1em;
+      font-weight:            500;
+      font-size:              1.25em;
     }
 
     > .-hex,
@@ -108,6 +115,7 @@
       //
       opacity:                0.5;
       color:                  inherit;
+      transition:             all .25s;
 
       &:hover {
         opacity:              1;
@@ -122,17 +130,45 @@
       visibility:             hidden;
 
       //
-      margin:                .5em 0 0;
-
-      //
       font-size:             .85em;
-      line-height:            1em;
       font-variant:           small-caps;
     }
 
+    @media (max-width: 768px) {
+      .-hex,
+      .-rgb,
+      .-hsl,
+      .-hsv,
+      .-copied {
+        display:              none;
+      }
+    }
+
     > .-select {
+      display:                block;
+
+      //
       width:                  100%;
+
+      //
+      padding:               .75em;
       margin:                .5em 0 0;
+
+      //
+      border-radius:         .15em;
+      border:                .063em solid;
+
+      //
+      opacity:               .9;
+      text-transform:         uppercase;
+
+      &:hover {
+        opacity:              1;
+      }
+
+      &:active {
+        transform:            scale(0.96);
+      }
     }
 
     &::after {
@@ -229,47 +265,57 @@
     display:                  none;
 
     //
-    top:                      20%;
+    top:                      10%;
     left:                     50%;
-    z-index:                  $z-index + 2;
     position:                 fixed;
+    z-index:                  $z-index + 2;
 
     //
     width:                    30%;
+    transform:                translate(-50%, -90%);
 
     //
-    border-radius:           .25em;
+    border-radius:           .15em;
     box-shadow:               0 0 0 0.05em transparentize($black-color, 0.75);
-
-    //
-    transform:                translate(-50%, -80%);
 
     > select {
       width:                  100%;
 
-      + .select2-container {
-        > .select2-dropdown {
-          z-index:            $z-index + 3;
+      ~ .selectize-control {
+        > .selectize-input {
+          &,
+          > input {
+            font-size:        inherit;
+            line-height:      inherit;
+          }
         }
+      }
 
-        .-color {
-          display:            inline-block;
+      ~ .selectize-dropdown {
+        font-size:            inherit;
+        line-height:          inherit;
 
-          //
-          vertical-align:     middle;
+        //
+        z-index:              $z-index + 3;
 
-          > .-swatch {
+        > .selectize-dropdown-content {
+          max-height:         75vh;
+
+          .-color {
             display:          inline-block;
+            vertical-align:   middle;
 
-            //
-            width:            1em;
-            height:           1em;
+            > .-swatch {
+              display:        inline-block;
+              vertical-align: middle;
 
-            //
-            border-radius:   .25em;
+              //
+              width:          1em;
+              height:         1em;
 
-            //
-            vertical-align:   text-top;
+              //
+              border-radius: .15em;
+            }
           }
         }
       }
@@ -289,35 +335,99 @@
 }
 
 .named-color-picker-swatch {
-  display:                    inline-block;
   vertical-align:             middle;
+  display:                    inline-block;
 
   //
-  cursor:                     pointer;
+  margin:                    -.75em 0;
+
+  //
+  width:                      1.75em;
+  height:                     1.75em;
+
+  //
+  outline:                    none;
+  -webkit-tap-highlight-color: none;
+
+  //
+  border-radius:             .15em;
+  box-shadow:                 0.063em 0.063em 0 0 $white-color, 0.126em 0.126em 0 0 rgba($black-color, 0.15);
+
+  &:hover {
+    filter:                   brightness(0.9);
+  }
 
   &.-swatch-before {
-    margin:                   0 .5em 0 0;
+    margin-right:            .5em;
   }
 
   &.-swatch-after {
-    margin:                   0 0 0 .5em;
+    margin-left:             .5em;
+  }
+
+  &.-stand-alone {
+    margin-top:               0;
+    margin-bottom:            0;
+
+    //
+    width:                    100%;
+    height:                   auto;
+  }
+
+  &:active {
+    transform:                scale(0.94);
+  }
+
+  &.-grow,
+  &.-shrink {
+    animation-iteration-count: 1;
+    animation-duration:      .25s;
+  }
+
+  &.-grow {
+    animation-name:           named-color-picker-grow;
+  }
+
+  &.-shrink {
+    animation-name:           named-color-picker-shrink;
   }
 
   > svg {
-    display:                  inline-block;
-    vertical-align:           middle;
+    display:                  block;
 
     //
-    height:                   1.5em;
-    width:                    auto;
+    width:                    100%;
+    height:                   100%;
 
     //
-    border-radius:           .25em;
-    border:                   1px solid $white-color;
-    box-shadow:               1px 1px 0 0 rgba($black-color, 0.15);
+    border-radius:           .15em;
 
     > g {
       fill:                   currentColor;
     }
+  }
+}
+
+@keyframes named-color-picker-grow {
+  0% {
+    opacity:                  1;
+    transform:                scale(1);
+  }
+
+  100% {
+    opacity:                  0;
+    transform:                scale(1.25);
+  }
+}
+
+@keyframes named-color-picker-shrink {
+  0% {
+    opacity:                  0;
+    transform:                scale(1.25);
+  }
+
+  100% {
+    opacity:                  1;
+    transform:                scale(1);
   }
 }

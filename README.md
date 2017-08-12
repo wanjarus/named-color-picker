@@ -1,8 +1,8 @@
 <h1 align="center" style="text-align:center;">Named Color Picker</h1>
-<p align="center" style="text-align:center;">Named color picker w/ 2,065 named colors.</p>
+<p align="center" style="text-align:center;">jQuery color picker w/ 2,065 named colors, mobile-friendly.</p>
 
 <p align="center" style="text-align:center;">
-  <a href="https://www.npmjs.com/package/@src-works/named-color-picker"><img src="https://nodei.co/npm/@src-works/named-color-picker.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="npm overview" height="69" valign="middle" style="height:69px; vertical-align:middle;" /></a><br />
+  <a href="https://www.npmjs.com/package/named-color-picker"><img src="https://nodei.co/npm/named-color-picker.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="npm overview" height="69" valign="middle" style="height:69px; vertical-align:middle;" /></a><br />
   <a href="https://github.com/src-works/named-color-picker/blob/master/CHANGELOG.md"><img src="https://img.shields.io/badge/%f0%9f%93%a6_version-0.0.0-orange.svg" alt="latest version" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/dist/scripts/js/index.web.min.js"><img src="https://img.shields.io/github/size/src-works/named-color-picker/dist/scripts/js/index.web.min.js.svg" alt="browser script size" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/dist/scripts/ts/types/index.d.ts"><img src="https://img.shields.io/badge/%f0%9f%93%98-typescript%2fjs-2882C3.svg" alt="typescript/js" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/issues"><img src="https://img.shields.io/github/issues/src-works/named-color-picker.svg" alt="open issues" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a><br />
   <a href="https://greenkeeper.io/"><img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg" alt="greenkeeper" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://david-dm.org/src-works/named-color-picker"><img src="https://img.shields.io/david/src-works/named-color-picker.svg" alt="dependency status" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://twitter.com/_src_works"><img src="https://img.shields.io/twitter/follow/_src_works.svg?style=social&amp;label=Follow%20%40_src_works" alt="follow on twitter" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker"><img src="https://img.shields.io/github/followers/src-works.svg?style=social&amp;label=Follow" alt="follow on github" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/fork"><img src="https://img.shields.io/github/forks/src-works/named-color-picker.svg?style=social&amp;label=Fork" alt="fork" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a>
 </p>
@@ -11,31 +11,37 @@
   <a href="https://src.works/donate?utm_source=repo&amp;utm_medium=organic&amp;utm_term=src-works%2Fnamed-color-picker&amp;utm_campaign=donate%3Aeither-side&amp;utm_content=sub-header"><img src="https://src.works/wp-content/uploads/2017/07/dby-donate.svg?v=0.0.1" alt="developed by ‹src.works/›" width="100%" height="auto" style="width:100%; height:auto;" /></a>
 </p>
 
+The named color picker takes a somewhat different approach to choosing a color. Instead of a color spectrum/wheel, colors are selected from a fullscreen grid by name, or searched for in a dropdown, also by name. (**[DEMO](https://src-works.github.com/named-color-picker/docs/index.html)**)
+
+There are 2,065 named color variables (no duplicate names, no duplicate colors). Color names courtesy of [Resene Paints](http://www.resene.co.nz/) and the [XKCD Color Survey](https://blog.xkcd.com/2010/05/03/color-survey-results/) (minus potentially-offensive color names & negative connotations). Additional color names include those supported by all major browsers in the CSS3 spec.
+
 ## Installation Options
 
-### Install via <img src="https://src.works/wp-content/uploads/2017/05/npm.svg?v=0.0.1" alt="NPM" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" /> [package](https://www.npmjs.com/package/@src-works/named-color-picker)
+### Install via <img src="https://src.works/wp-content/uploads/2017/05/npm.svg?v=0.0.1" alt="NPM" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" /> [package](https://www.npmjs.com/package/named-color-picker)
 
 ```bash
-$ npm install @src-works/named-color-picker --save;
+$ npm install named-color-picker --save;
 ```
 
-### Or install via <img src="https://src.works/wp-content/uploads/2017/06/yarn.svg?v=0.0.1" alt="Yarn" valign="middle" width="auto" height="24" style="vertical-align:middle; width:auto; height:24px;" /> Yarn [package](https://yarnpkg.com/en/package/@src-works/named-color-picker)
+### Or install via <img src="https://src.works/wp-content/uploads/2017/06/yarn.svg?v=0.0.1" alt="Yarn" valign="middle" width="auto" height="24" style="vertical-align:middle; width:auto; height:24px;" /> Yarn [package](https://yarnpkg.com/en/package/named-color-picker)
 
 ```bash
-$ yarn add @src-works/named-color-picker;
+$ yarn add named-color-picker;
 ```
 
-### Or install via [unpkg.com](https://unpkg.com/@src-works/named-color-picker/dist/) CDN <img src="https://src.works/wp-content/uploads/2017/05/cdn.svg?v=0.0.1" alt="CDN" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" />
+### Or install via [unpkg.com](https://unpkg.com/named-color-picker/dist/) CDN <img src="https://src.works/wp-content/uploads/2017/05/cdn.svg?v=0.0.1" alt="CDN" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" />
 
 ```html
-<!-- Dependencies. -->
-<link href="https://unpkg.com/select2@4.0.3/dist/css/select2.min.css" rel="stylesheet" integrity="sha384-HIipfSYbpCkh5/1V87AWAeR5SUrNiewznrUrtNz1ux4uneLhsAKzv/0FnMbj3m6g" crossorigin="anonymous" />
+<!-- Style dependencies. -->
+<link href="https://unpkg.com/selectize@0.12.4/dist/css/selectize.default.css" rel="stylesheet" integrity="sha384-y/lK0mgNA2CldgvjfZFQ7ciSAhXLpIgkl4W/wifJ0EobNX5ac1buhp9X11g7GR2M" crossorigin="anonymous" />
+
+<!-- Script dependencies. -->
 <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/tinycolor2@1.4.1/dist/tinycolor-min.js" integrity="sha384-a5Bm1aj9jmRF0rquE7qZJ52rHZMfCJnKtC08F0GSTdT/qDFFuko4EzYOyluc7CKg" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/select2@4.0.3/dist/js/select2.min.js" integrity="sha384-222hzbb8Z8ZKe6pzP18nTSltQM3PdcAwxWKzGOKOIF+Y3bROr5n9zdQ8yTRHgQkQ" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/selectize@0.12.4/dist/js/standalone/selectize.min.js" integrity="sha384-hYEUbTDrbRpAapjELb51WHIvIGbN0P5Dp+ub0zJz6BAqrblWPrjftbF4068yYJAi" crossorigin="anonymous"></script>
 
 <!-- The package itself. -->
-<script src="https://unpkg.com/@src-works/named-color-picker@0.0.0" integrity="" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/named-color-picker@0.0.0" integrity="" crossorigin="anonymous"></script>
 ```
 
 #### Mean Alternative (Heavier Stand-Alone Library)
@@ -43,7 +49,7 @@ $ yarn add @src-works/named-color-picker;
 In this variation, the package itself is larger because it also contains the dependencies. That does make it easier to use, but you lose the ability to separate the dependencies from the package itself. For example, if you need one of this package's dependencies in another part of your application (for something unrelated to this package), it's better to include that dependency yourself so it can be shared by all.
 
 ```html
-<script src="https://unpkg.com/@src-works/named-color-picker@0.0.0/dist/scripts/js/index.web.min.mean.js" integrity="" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/named-color-picker@0.0.0/dist/scripts/js/index.web.min.mean.js" integrity="" crossorigin="anonymous"></script>
 ```
 
 ## Works in All [Modern Browsers](http://browserl.ist/?q=%3E%201%25#src-works/named-color-picker)
@@ -59,6 +65,10 @@ If you need to support IE <= 11 (prior to Edge), older versions of Android, and 
 <!-- Only needed if you want to support much older browsers. -->
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6&amp;flags=gated"></script>
 ```
+
+## Demos / Documentation
+
+- see: [Named Color Picker](https://src-works.github.com/named-color-picker/docs/index.html)
 
 ---
 
@@ -89,23 +99,23 @@ Always use the latest stable version in production. If you want upcoming changes
   <tbody>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Hackers</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@dev/">@dev</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@dev/">@dev</a></td>
       <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><strong>Latest Bleeding Edge</strong><br />potentially-unstable</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@dev/"><img src="https://img.shields.io/npm/v/@src-works/named-color-picker/dev.svg" alt="Release Tag" valign="middle" style="vertical-align:middle;" /></a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@dev/"><img src="https://img.shields.io/npm/v/named-color-picker/dev.svg" alt="Release Tag" valign="middle" style="vertical-align:middle;" /></a></td>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://github.com/src-works/named-color-picker/tree/master">master</a> (<a href="https://github.com/src-works/named-color-picker/pulls">PRs</a>)</td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Lab Rats</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@rc/">@rc</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@rc/">@rc</a></td>
       <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><strong>Next Release Candidate</strong><br />upcoming semi-stable release</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@rc/"><img src="https://img.shields.io/npm/v/@src-works/named-color-picker/rc.svg" alt="Release Tag" valign="middle" style="vertical-align:middle;" /></a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@rc/"><img src="https://img.shields.io/npm/v/named-color-picker/rc.svg" alt="Release Tag" valign="middle" style="vertical-align:middle;" /></a></td>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://github.com/src-works/named-color-picker/releases">releases</a></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Everyone</strong></td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@latest/">@latest</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@latest/">@latest</a></td>
       <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><strong>Latest Stable Version</strong><br />highly recommended</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@latest/"><img src="https://img.shields.io/npm/v/@src-works/named-color-picker/latest.svg" alt="Release Tag" valign="middle" style="vertical-align:middle;" /></a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@latest/"><img src="https://img.shields.io/npm/v/named-color-picker/latest.svg" alt="Release Tag" valign="middle" style="vertical-align:middle;" /></a></td>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://github.com/src-works/named-color-picker/releases">releases</a></td>
     </tr>
   </tbody>
@@ -124,22 +134,22 @@ Always use the latest stable version in production. If you want upcoming changes
   <tbody>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Hackers</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@dev/">@dev</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>&quot;@src-works/named-color-picker&quot;: &quot;dev&quot;</code></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@dev/">@dev</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>&quot;named-color-picker&quot;: &quot;dev&quot;</code></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Lab Rats</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@rc/">@rc</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>&quot;@src-works/named-color-picker&quot;: &quot;rc&quot;</code></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@rc/">@rc</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>&quot;named-color-picker&quot;: &quot;rc&quot;</code></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Everyone</strong></td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@latest/">@latest</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>&quot;@src-works/named-color-picker&quot;: &quot;latest&quot;</code></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@latest/">@latest</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>&quot;named-color-picker&quot;: &quot;latest&quot;</code></td>
     </tr>
     <tr>
       <td align="center" valign="middle" colspan="2" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Latest Stable Version</strong></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>&quot;@src-works/named-color-picker&quot;: &quot;^0.0.0&quot;</code></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>&quot;named-color-picker&quot;: &quot;^0.0.0&quot;</code></td>
     </tr>
   </tbody>
 </table>
@@ -155,22 +165,22 @@ Always use the latest stable version in production. If you want upcoming changes
   <tbody>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Hackers</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@dev/">@dev</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>npm install @src-works/named-color-picker@dev</code></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@dev/">@dev</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>npm install named-color-picker@dev</code></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Lab Rats</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@rc/">@rc</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>npm install @src-works/named-color-picker@rc</code></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@rc/">@rc</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>npm install named-color-picker@rc</code></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Everyone</strong></td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@latest/">@latest</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>npm install @src-works/named-color-picker@latest</code></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@latest/">@latest</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>npm install named-color-picker@latest</code></td>
     </tr>
     <tr>
       <td align="center" valign="middle" colspan="2" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Latest Stable Version</strong></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>npm install @src-works/named-color-picker</code></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><code>npm install named-color-picker</code></td>
     </tr>
   </tbody>
 </table>
@@ -188,22 +198,22 @@ Always use the latest stable version in production. If you want upcoming changes
   <tbody>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Hackers</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@dev/dist/">@dev</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/@src-works/named-color-picker@dev/dist/">https://unpkg.com/@src-works/named-color-picker@dev/dist/</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@dev/dist/">@dev</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/named-color-picker@dev/dist/">https://unpkg.com/named-color-picker@dev/dist/</a></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Lab Rats</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@rc/dist/">@rc</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/@src-works/named-color-picker@rc/dist/">https://unpkg.com/@src-works/named-color-picker@rc/dist/</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@rc/dist/">@rc</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/named-color-picker@rc/dist/">https://unpkg.com/named-color-picker@rc/dist/</a></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Everyone</strong></td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@latest/dist/">@latest</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/@src-works/named-color-picker@latest/dist/">https://unpkg.com/@src-works/named-color-picker@latest/dist/</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@latest/dist/">@latest</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/named-color-picker@latest/dist/">https://unpkg.com/named-color-picker@latest/dist/</a></td>
     </tr>
     <tr>
       <td align="center" valign="middle" colspan="2" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Latest Stable Version</strong></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/@src-works/named-color-picker@0.0.0/dist/">https://unpkg.com/@src-works/named-color-picker@0.0.0/dist/</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/named-color-picker@0.0.0/dist/">https://unpkg.com/named-color-picker@0.0.0/dist/</a></td>
     </tr>
   </tbody>
 </table>
@@ -221,22 +231,22 @@ Always use the latest stable version in production. If you want upcoming changes
   <tbody>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Hackers</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@dev/dist/">@dev</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/@src-works/named-color-picker@dev">https://unpkg.com/@src-works/named-color-picker@dev</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@dev/dist/">@dev</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/named-color-picker@dev">https://unpkg.com/named-color-picker@dev</a></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;">Lab Rats</td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@rc/dist/">@rc</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/@src-works/named-color-picker@rc">https://unpkg.com/@src-works/named-color-picker@rc</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@rc/dist/">@rc</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/named-color-picker@rc">https://unpkg.com/named-color-picker@rc</a></td>
     </tr>
     <tr>
       <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Everyone</strong></td>
-      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/@src-works/named-color-picker@latest/dist/">@latest</a></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/@src-works/named-color-picker@latest">https://unpkg.com/@src-works/named-color-picker@latest</a></td>
+      <td align="center" valign="middle" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><a href="https://unpkg.com/named-color-picker@latest/dist/">@latest</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/named-color-picker@latest">https://unpkg.com/named-color-picker@latest</a></td>
     </tr>
     <tr>
       <td align="center" valign="middle" colspan="2" nowrap style="text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Latest Stable Version</strong></td>
-      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/@src-works/named-color-picker@0.0.0">https://unpkg.com/@src-works/named-color-picker@0.0.0</a></td>
+      <td align="center" valign="middle" style="text-align:center; vertical-align:middle;"><a href="https://unpkg.com/named-color-picker@0.0.0">https://unpkg.com/named-color-picker@0.0.0</a></td>
     </tr>
   </tbody>
 </table>
@@ -244,10 +254,10 @@ Always use the latest stable version in production. If you want upcoming changes
 #### <img src="https://src.works/wp-content/uploads/2017/05/cdn.svg?v=0.0.1" alt="CDN" valign="middle" width="auto" height="20" style="vertical-align:middle; width:auto; height:20px;" /> In production, use the latest stable version with an SRI integrity hash.
 
 ```html
-<script src="https://unpkg.com/@src-works/named-color-picker@0.0.0" integrity="" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/named-color-picker@0.0.0" integrity="" crossorigin="anonymous"></script>
 ```
 
-_**Tip:** Don't use an SRI hash with a tag like `@dev`, `@rc`, or `@latest`. Tags reference a version dynamically; e.g., the `@latest` tag will point to an updated copy once the next version is released. So a tagged release URL may render an SRI invalid. If you need the SRI, use a specific `@x.x.x` version in the URL instead of a tag._
+_**Tip:** Don't use an SRI hash with a tag like `@dev`, `@rc`, or `@latest`. Tags reference a version dynamically; e.g., the `@latest` tag will point to an updated copy once the next version is released — rendering the SRI invalid. Instead, use a specific `@x.x.x` version in the URL._
 
 ## MIT License
 

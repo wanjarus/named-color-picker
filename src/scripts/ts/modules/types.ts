@@ -5,39 +5,67 @@ export interface JQueryNamedColorPicker {
 }
 
 export interface Options {
+  mode: string;
+
+  titleizeElement: boolean;
+  colorizeElement: boolean;
+
+  showCodes: boolean | Array<string>;
+  openSearch: boolean;
+
   i18n: {
     copied: string;
     select: string;
     searchColors: string;
+    promptCopyFallback: string;
   };
-  mode: string;
-  openSearch: boolean;
-  colorizeElement: boolean;
-  titleizeElement: boolean;
 }
 
 export interface OptionsArg {
-  i18n?: {
-    copied: string;
-    select: string;
-    searchColors: string;
-  };
   mode?: string;
-  openSearch?: boolean;
-  colorizeElement?: boolean;
+
   titleizeElement?: boolean;
+  colorizeElement?: boolean;
+
+  showCodes?: boolean | Array<string>;
+  openSearch?: boolean;
+
+  i18n?: {
+    copied?: string;
+    select?: string;
+    searchColors?: string;
+    promptCopyFallback?: string;
+  };
 }
 
 export interface OpenOptions {
+  onBeforeOpen: Function | undefined;
+  onOpened: Function | undefined;
+
+  onBeforeClose: Function | undefined;
+  onClosed: Function | undefined;
+
+  onColorActive: Function | undefined;
+  onActiveColorClosed: Function | undefined;
+  onColorSelected: Function | undefined;
+
+  showCodes: boolean | Array<string>;
   openSearch: boolean;
-  setActiveColor: Color | string;
-  onSelect: Function | null | undefined;
 }
 
 export interface OpenOptionsArg {
+  onBeforeOpen?: Function | undefined;
+  onOpened?: Function | undefined;
+
+  onBeforeClose?: Function | undefined;
+  onClosed?: Function | undefined;
+
+  onColorActive?: Function | undefined;
+  onActiveColorClosed?: Function | undefined;
+  onColorSelected?: Function | undefined;
+
+  showCodes?: boolean | Array<string>;
   openSearch?: boolean;
-  setActiveColor?: Color | string;
-  onSelect?: Function | null | undefined;
 }
 
 export interface Color {
@@ -72,6 +100,8 @@ export interface Color {
 
   isDark: boolean;
   isLight: boolean;
+
+  tiny: tinycolorInstance;
 }
 
 export interface Colors {
@@ -79,24 +109,29 @@ export interface Colors {
 }
 
 export interface ColorOption {
-  color: Color;
-  $option: JQuery;
-  index: number;
-  id: string;
+  value: string;
   text: string;
 }
 
-export interface InfoCss extends JQueryCssProperties {
+export interface InfoCss {
   top: string | number;
   right: string | number;
   bottom: string | number;
   left: string | number;
-  backgroundColor: string;
+
   color: string;
+  backgroundImage: string;
+}
+
+export interface InfoSelectCss {
+  color: string;
+  borderColor: string;
+  backgroundImage: string;
 }
 
 export interface InfoCssData {
   css: InfoCss;
+  selectCss: InfoSelectCss;
   arrowClass: string;
   arrowStyles: string;
 }

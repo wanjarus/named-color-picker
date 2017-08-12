@@ -1,5 +1,5 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}(g.srcWorks || (g.srcWorks = {})).namedColorPicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = ".named-color-picker {\n  display: none;\n  top: 0;\n  left: 0;\n  z-index: 3000;\n  position: absolute;\n  width: 100vw;\n  height: 100vh;\n  font-size: 1rem;\n}\n\n.named-color-picker,\n.named-color-picker * {\n  box-sizing: border-box;\n}\n\n.named-color-picker > .-grid {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-flow: row wrap;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  background: #000000;\n}\n\n.named-color-picker > .-grid > .-color {\n  -webkit-box-flex: 1;\n          flex: 1 0 auto;\n  border-radius: .1em;\n  border: 2px solid transparent;\n  transition: -webkit-transform .125s;\n  transition: transform .125s;\n  transition: transform .125s, -webkit-transform .125s;\n}\n\n.named-color-picker > .-grid > .-color.-active, .named-color-picker > .-grid > .-color:hover {\n  -webkit-transform: scale(1.75);\n          transform: scale(1.75);\n  border-color: #ffffff;\n  box-shadow: 0 0 0 0.05em rgba(0, 0, 0, 0.25);\n}\n\n.named-color-picker > .-grid > .-color.-search {\n  color: #000000;\n  background-color: #ffffff;\n}\n\n.named-color-picker > .-grid > .-color.-search > svg {\n  width: 100%;\n  height: auto;\n  vertical-align: text-top;\n}\n\n.named-color-picker > .-grid > .-color.-search > svg > g {\n  fill: currentColor;\n}\n\n.named-color-picker > .-info {\n  display: none;\n  position: fixed;\n  padding: .5em;\n  border-radius: .15em;\n  border: 0.25em solid #ffffff;\n  box-shadow: 0 0 0 0.15em rgba(0, 0, 0, 0.25);\n  text-align: center;\n}\n\n.named-color-picker > .-info > .-title {\n  margin: 0 0 1em;\n}\n\n.named-color-picker > .-info > .-hex,\n.named-color-picker > .-info > .-rgb,\n.named-color-picker > .-info > .-hsl,\n.named-color-picker > .-info > .-hsv {\n  display: block;\n  font-size: .85em;\n  text-decoration: none;\n  font-family: monospace;\n  opacity: 0.5;\n  color: inherit;\n}\n\n.named-color-picker > .-info > .-hex:hover,\n.named-color-picker > .-info > .-rgb:hover,\n.named-color-picker > .-info > .-hsl:hover,\n.named-color-picker > .-info > .-hsv:hover {\n  opacity: 1;\n}\n\n.named-color-picker > .-info > .-hex {\n  font-size: 1.25em;\n}\n\n.named-color-picker > .-info > .-copied {\n  visibility: hidden;\n  margin: .5em 0 0;\n  font-size: .85em;\n  line-height: 1em;\n  font-variant: small-caps;\n}\n\n.named-color-picker > .-info > .-select {\n  width: 100%;\n  margin: .5em 0 0;\n}\n\n.named-color-picker > .-info::after {\n  content: '';\n  position: absolute;\n  width: 0;\n  height: 0;\n  font-size: .675em;\n}\n\n.named-color-picker > .-info.-arrow-top::after {\n  top: -1em;\n  left: calc(50% - 1em);\n  border-left: 1em solid transparent;\n  border-right: 1em solid transparent;\n  border-bottom: 1em solid #ffffff;\n}\n\n.named-color-picker > .-info.-arrow-bottom::after {\n  bottom: -1em;\n  left: calc(50% - 1em);\n  border-left: 1em solid transparent;\n  border-right: 1em solid transparent;\n  border-top: 1em solid #ffffff;\n}\n\n.named-color-picker > .-info.-arrow-left::after {\n  left: -1em;\n  top: calc(50% - 1em);\n  border-top: 1em solid transparent;\n  border-bottom: 1em solid transparent;\n  border-right: 1em solid #ffffff;\n}\n\n.named-color-picker > .-info.-arrow-left-top::after {\n  top: .5em;\n}\n\n.named-color-picker > .-info.-arrow-left-bottom::after {\n  top: auto;\n  bottom: .5em;\n}\n\n.named-color-picker > .-info.-arrow-right::after {\n  right: -1em;\n  top: calc(50% - 1em);\n  border-top: 1em solid transparent;\n  border-bottom: 1em solid transparent;\n  border-left: 1em solid #ffffff;\n}\n\n.named-color-picker > .-info.-arrow-right-top::after {\n  top: .5em;\n}\n\n.named-color-picker > .-info.-arrow-right-bottom::after {\n  top: auto;\n  bottom: .5em;\n}\n\n.named-color-picker > .-search-overlay {\n  display: none;\n  top: 0;\n  left: 0;\n  z-index: 3001;\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.75);\n}\n\n.named-color-picker > .-search {\n  display: none;\n  top: 20%;\n  left: 50%;\n  z-index: 3002;\n  position: fixed;\n  width: 30%;\n  border-radius: .25em;\n  box-shadow: 0 0 0 0.05em rgba(0, 0, 0, 0.25);\n  -webkit-transform: translate(-50%, -80%);\n          transform: translate(-50%, -80%);\n}\n\n.named-color-picker > .-search > select {\n  width: 100%;\n}\n\n.named-color-picker > .-search > select + .select2-container > .select2-dropdown {\n  z-index: 3003;\n}\n\n.named-color-picker > .-search > select + .select2-container .-color {\n  display: inline-block;\n  vertical-align: middle;\n}\n\n.named-color-picker > .-search > select + .select2-container .-color > .-swatch {\n  display: inline-block;\n  width: 1em;\n  height: 1em;\n  border-radius: .25em;\n  vertical-align: text-top;\n}\n\n.named-color-picker > .-textarea {\n  top: -99999px;\n  left: -99999px;\n  position: fixed;\n  width: 1px;\n  height: 1px;\n  overflow: hidden;\n}\n\n.named-color-picker-swatch {\n  display: inline-block;\n  vertical-align: middle;\n  cursor: pointer;\n}\n\n.named-color-picker-swatch.-swatch-before {\n  margin: 0 .5em 0 0;\n}\n\n.named-color-picker-swatch.-swatch-after {\n  margin: 0 0 0 .5em;\n}\n\n.named-color-picker-swatch > svg {\n  display: inline-block;\n  vertical-align: middle;\n  height: 1.5em;\n  width: auto;\n  border-radius: .25em;\n  border: 1px solid #ffffff;\n  box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.15);\n}\n\n.named-color-picker-swatch > svg > g {\n  fill: currentColor;\n}\n";
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.namedColorPicker = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports = "html.named-color-picker-open,\nhtml.named-color-picker-open body {\n  overflow: hidden !important;\n}\n\n.named-color-picker {\n  display: none;\n  top: 0;\n  left: 0;\n  position: fixed;\n  z-index: 3000;\n  width: 100vw;\n  height: 100vh;\n  font-size: 1rem;\n}\n\n.named-color-picker,\n.named-color-picker * {\n  box-sizing: border-box;\n}\n\n.named-color-picker > .-grid {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-flow: row wrap;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  background: #000000;\n}\n\n.named-color-picker > .-grid > .-color {\n  -webkit-box-flex: 0;\n          flex: 0 0 auto;\n  border-radius: .15em;\n  border: 2px solid transparent;\n  transition: -webkit-transform .125s;\n  transition: transform .125s;\n  transition: transform .125s, -webkit-transform .125s;\n}\n\n.named-color-picker > .-grid > .-color.-active, .named-color-picker > .-grid > .-color:hover {\n  -webkit-transform: scale(1.75);\n          transform: scale(1.75);\n  border-color: #ffffff;\n  box-shadow: 0 0 0 0.05em rgba(0, 0, 0, 0.25);\n}\n\n.named-color-picker > .-grid > .-color.-search {\n  color: #000000;\n  background-color: #ffffff;\n}\n\n.named-color-picker > .-grid > .-color.-search > svg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\n.named-color-picker > .-grid > .-color.-search > svg > g {\n  fill: currentColor;\n}\n\n.named-color-picker > .-info {\n  display: none;\n  position: fixed;\n  min-width: 15em;\n  padding: .75em 1em 1em;\n  text-align: center;\n  border-radius: .15em;\n  border: 0.25em solid #ffffff;\n  box-shadow: 0 0 0 0.15em rgba(0, 0, 0, 0.25);\n}\n\n.named-color-picker > .-info > .-title {\n  font-weight: 500;\n  font-size: 1.25em;\n}\n\n.named-color-picker > .-info > .-hex,\n.named-color-picker > .-info > .-rgb,\n.named-color-picker > .-info > .-hsl,\n.named-color-picker > .-info > .-hsv {\n  display: block;\n  font-size: .85em;\n  text-decoration: none;\n  font-family: monospace;\n  opacity: 0.5;\n  color: inherit;\n  transition: all .25s;\n}\n\n.named-color-picker > .-info > .-hex:hover,\n.named-color-picker > .-info > .-rgb:hover,\n.named-color-picker > .-info > .-hsl:hover,\n.named-color-picker > .-info > .-hsv:hover {\n  opacity: 1;\n}\n\n.named-color-picker > .-info > .-hex {\n  font-size: 1.25em;\n}\n\n.named-color-picker > .-info > .-copied {\n  visibility: hidden;\n  font-size: .85em;\n  font-variant: small-caps;\n}\n\n@media (max-width: 768px) {\n  .named-color-picker > .-info .-hex,\n  .named-color-picker > .-info .-rgb,\n  .named-color-picker > .-info .-hsl,\n  .named-color-picker > .-info .-hsv,\n  .named-color-picker > .-info .-copied {\n    display: none;\n  }\n}\n\n.named-color-picker > .-info > .-select {\n  display: block;\n  width: 100%;\n  padding: .75em;\n  margin: .5em 0 0;\n  border-radius: .15em;\n  border: .063em solid;\n  opacity: .9;\n  text-transform: uppercase;\n}\n\n.named-color-picker > .-info > .-select:hover {\n  opacity: 1;\n}\n\n.named-color-picker > .-info > .-select:active {\n  -webkit-transform: scale(0.96);\n          transform: scale(0.96);\n}\n\n.named-color-picker > .-info::after {\n  content: '';\n  position: absolute;\n  width: 0;\n  height: 0;\n  font-size: .675em;\n}\n\n.named-color-picker > .-info.-arrow-top::after {\n  top: -1em;\n  left: calc(50% - 1em);\n  border-left: 1em solid transparent;\n  border-right: 1em solid transparent;\n  border-bottom: 1em solid #ffffff;\n}\n\n.named-color-picker > .-info.-arrow-bottom::after {\n  bottom: -1em;\n  left: calc(50% - 1em);\n  border-left: 1em solid transparent;\n  border-right: 1em solid transparent;\n  border-top: 1em solid #ffffff;\n}\n\n.named-color-picker > .-info.-arrow-left::after {\n  left: -1em;\n  top: calc(50% - 1em);\n  border-top: 1em solid transparent;\n  border-bottom: 1em solid transparent;\n  border-right: 1em solid #ffffff;\n}\n\n.named-color-picker > .-info.-arrow-left-top::after {\n  top: .5em;\n}\n\n.named-color-picker > .-info.-arrow-left-bottom::after {\n  top: auto;\n  bottom: .5em;\n}\n\n.named-color-picker > .-info.-arrow-right::after {\n  right: -1em;\n  top: calc(50% - 1em);\n  border-top: 1em solid transparent;\n  border-bottom: 1em solid transparent;\n  border-left: 1em solid #ffffff;\n}\n\n.named-color-picker > .-info.-arrow-right-top::after {\n  top: .5em;\n}\n\n.named-color-picker > .-info.-arrow-right-bottom::after {\n  top: auto;\n  bottom: .5em;\n}\n\n.named-color-picker > .-search-overlay {\n  display: none;\n  top: 0;\n  left: 0;\n  z-index: 3001;\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.75);\n}\n\n.named-color-picker > .-search {\n  display: none;\n  top: 10%;\n  left: 50%;\n  position: fixed;\n  z-index: 3002;\n  width: 30%;\n  -webkit-transform: translate(-50%, -90%);\n          transform: translate(-50%, -90%);\n  border-radius: .15em;\n  box-shadow: 0 0 0 0.05em rgba(0, 0, 0, 0.25);\n}\n\n.named-color-picker > .-search > select {\n  width: 100%;\n}\n\n.named-color-picker > .-search > select ~ .selectize-control > .selectize-input,\n.named-color-picker > .-search > select ~ .selectize-control > .selectize-input > input {\n  font-size: inherit;\n  line-height: inherit;\n}\n\n.named-color-picker > .-search > select ~ .selectize-dropdown {\n  font-size: inherit;\n  line-height: inherit;\n  z-index: 3003;\n}\n\n.named-color-picker > .-search > select ~ .selectize-dropdown > .selectize-dropdown-content {\n  max-height: 75vh;\n}\n\n.named-color-picker > .-search > select ~ .selectize-dropdown > .selectize-dropdown-content .-color {\n  display: inline-block;\n  vertical-align: middle;\n}\n\n.named-color-picker > .-search > select ~ .selectize-dropdown > .selectize-dropdown-content .-color > .-swatch {\n  display: inline-block;\n  vertical-align: middle;\n  width: 1em;\n  height: 1em;\n  border-radius: .15em;\n}\n\n.named-color-picker > .-textarea {\n  top: -99999px;\n  left: -99999px;\n  position: fixed;\n  width: 1px;\n  height: 1px;\n  overflow: hidden;\n}\n\n.named-color-picker-swatch {\n  vertical-align: middle;\n  display: inline-block;\n  margin: -.75em 0;\n  width: 1.75em;\n  height: 1.75em;\n  outline: none;\n  -webkit-tap-highlight-color: none;\n  border-radius: .15em;\n  box-shadow: 0.063em 0.063em 0 0 #ffffff, 0.126em 0.126em 0 0 rgba(0, 0, 0, 0.15);\n}\n\n.named-color-picker-swatch:hover {\n  -webkit-filter: brightness(0.9);\n          filter: brightness(0.9);\n}\n\n.named-color-picker-swatch.-swatch-before {\n  margin-right: .5em;\n}\n\n.named-color-picker-swatch.-swatch-after {\n  margin-left: .5em;\n}\n\n.named-color-picker-swatch.-stand-alone {\n  margin-top: 0;\n  margin-bottom: 0;\n  width: 100%;\n  height: auto;\n}\n\n.named-color-picker-swatch:active {\n  -webkit-transform: scale(0.94);\n          transform: scale(0.94);\n}\n\n.named-color-picker-swatch.-grow, .named-color-picker-swatch.-shrink {\n  -webkit-animation-iteration-count: 1;\n          animation-iteration-count: 1;\n  -webkit-animation-duration: .25s;\n          animation-duration: .25s;\n}\n\n.named-color-picker-swatch.-grow {\n  -webkit-animation-name: named-color-picker-grow;\n          animation-name: named-color-picker-grow;\n}\n\n.named-color-picker-swatch.-shrink {\n  -webkit-animation-name: named-color-picker-shrink;\n          animation-name: named-color-picker-shrink;\n}\n\n.named-color-picker-swatch > svg {\n  display: block;\n  width: 100%;\n  height: 100%;\n  border-radius: .15em;\n}\n\n.named-color-picker-swatch > svg > g {\n  fill: currentColor;\n}\n\n@-webkit-keyframes named-color-picker-grow {\n  0% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1);\n  }\n  100% {\n    opacity: 0;\n    -webkit-transform: scale(1.25);\n            transform: scale(1.25);\n  }\n}\n\n@keyframes named-color-picker-grow {\n  0% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1);\n  }\n  100% {\n    opacity: 0;\n    -webkit-transform: scale(1.25);\n            transform: scale(1.25);\n  }\n}\n\n@-webkit-keyframes named-color-picker-shrink {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(1.25);\n            transform: scale(1.25);\n  }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1);\n  }\n}\n\n@keyframes named-color-picker-shrink {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale(1.25);\n            transform: scale(1.25);\n  }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1);\n  }\n}\n";
 
 },{}],2:[function(require,module,exports){
 module.exports={
@@ -2150,53 +2150,76 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Picker = require("./modules/picker");
-var window_var_1 = require("@src-works/window-var");
-var ns = 'namedColorPicker';
+var window_var_1 = require("window-var");
 var $ = window_var_1.win.jQuery || window_var_1.win.$ || require('jquery');
+var picker = void 0;
+var ns = 'namedColorPicker';
+var ss = 'named-color-picker';
+var instanceCounter = 0;
+var instances = [];
 
 var Instance = function () {
+    // Public constructor.
     function Instance(element, options) {
         _classCallCheck(this, Instance);
 
-        Instance.counter = Instance.counter || 0;
-        Instance.counter++; // Increment counter.
-        this.instance = Instance.counter;
+        this.animationEnd = 'webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend';
+        this.instance = instanceCounter = instanceCounter + 1;
+        this.ns = ns + String(this.instance);
+        this.ss = ss + '-' + this.instance;
+        instances.splice(this.instance - 1, 0, this);
         var $element = $(element);
         var existingInstance = $element.data(ns);
         if (existingInstance) existingInstance.destroy();
-        this.options = $.extend({}, {
-            i18n: {
-                copied: 'copied',
-                select: 'Select',
-                searchColors: 'Search Colors'
-            },
+        this.options = $.extend(true, {}, {
             mode: 'auto',
-            openSearch: false,
             titleizeElement: true,
-            colorizeElement: true
+            colorizeElement: true,
+            showCodes: true,
+            openSearch: false,
+            i18n: {}
         }, options || {});
-        if (!Instance.picker) {
-            var pickerOptions = { i18n: this.options.i18n };
-            Instance.picker = new Picker.Instance(this.instance, pickerOptions);
-        }
+        if (!picker) {
+            picker = new Picker.Instance({ i18n: this.options.i18n });
+        } // Instances all share a single picker instance.
+        this.picker = picker; // References picker.
         this.$element = $element;
         this.$element.data(ns, this);
+        this.$hiddenElement = $('<input type="hidden" />');
+        this.$element.after(this.$hiddenElement);
+        this.$hiddenElement.attr('name', this.$element.attr('name') || '');
+        this.$hiddenElement.val(this.$element.attr('value') || '');
+        this.$element.removeAttr('name'); // Remove name.
         this.elementTagName = this.$element.prop('tagName');
         this.elementTagName = this.elementTagName.toLowerCase();
         this.elementTagType = this.$element.attr('type') || '';
         this.elementTagType = this.elementTagType.toLowerCase();
+        this.elementIsTextualInput = this.$element.is('input[type="text"], textarea');
+        this.elementIsColorInput = !this.elementIsTextualInput && this.$element.is('input[type="color"]');
+        this.elementIsInput = this.elementIsTextualInput || this.elementIsColorInput;
+        this.elementOriginalTitleAttr = this.$element.attr('title') || '';
+        this.elementOriginalCssColor = this.$element.css('color') || '';
+        this.elementOriginalCssBackground = this.$element.css('background') || '';
+        this.elementOriginalCssBorderColor = this.$element.css('border-color') || '';
         if (this.options.mode === 'auto') {
-            if (this.elementTagName === 'input' && this.elementTagType === 'color') {
+            if (this.elementIsColorInput) {
                 this.options.mode = 'swatch-only';
             } else this.options.mode = 'swatch-after';
         }
-        this.elementOriginalTitleAttr = this.$element.attr('title');
-        this.elementOriginalCssColor = this.$element.css('color');
-        this.elementOriginalCssBackground = this.$element.css('background');
-        this.setupSwatch(); // Setup swatch/events.
+        this.setupElement(), this.setupSwatch();
     }
+    // Setup helpers.
+
 
     _createClass(Instance, [{
+        key: "setupElement",
+        value: function setupElement() {
+            if (['swatch-only', 'stand-alone'].indexOf(this.options.mode) !== -1) {
+                this.$element.hide(); // Not visible.
+            }
+            this.$element.on('keyup.' + this.ns + ' cut.' + this.ns + ' paste.' + this.ns + ' blur.' + this.ns + ' change.' + this.ns, this.picker.debounce(this.onElementAlter, 250).bind(this));
+        }
+    }, {
         key: "setupSwatch",
         value: function setupSwatch() {
             this.$swatch = $(this.swatchMarkup());
@@ -2204,75 +2227,247 @@ var Instance = function () {
                 this.$element.before(this.$swatch);
             } else if (this.options.mode === 'swatch-after') {
                 this.$element.after(this.$swatch);
-            } else if (this.options.mode === 'swatch-only') {
+            } else if (['swatch-only', 'stand-alone'].indexOf(this.options.mode) !== -1) {
                 this.$element.after(this.$swatch);
             }
-            if (this.options.mode === 'swatch-only') {
-                this.$element.hide(); // Hide the element source.
-            }
-            this.$element.on('keyup.' + ns + ' cut.' + ns + ' paste.' + ns + ' change.' + ns + ' blur.' + ns, this.onElementAlter.bind(this));
-            this.$swatch.show().on('click.' + ns, this.onSwatchClick.bind(this));
+            this.setSelectedColor(this.getSelectedColor(), true, false);
+            this.$swatch.on('click.' + this.ns, this.onSwatchClick.bind(this));
+            this.$swatch.show(); // Show color picker now.
+        }
+        // Open events.
+
+    }, {
+        key: "onBeforeOpen",
+        value: function onBeforeOpen() {
+            this.$element.trigger(ns + '.beforeOpen');
         }
     }, {
+        key: "onOpened",
+        value: function onOpened() {
+            this.$element.trigger(ns + '.opened');
+        }
+        // Close events.
+
+    }, {
+        key: "onBeforeClose",
+        value: function onBeforeClose() {
+            this.$element.trigger(ns + '.beforeClose');
+        }
+    }, {
+        key: "onClosed",
+        value: function onClosed() {
+            var _this = this;
+
+            this.$swatch.addClass('-shrink');
+            this.$swatch.one(this.animationEnd, function () {
+                return _this.$swatch.removeClass('-shrink');
+            });
+            this.$element.trigger(ns + '.closed');
+        }
+        // Color-related events.
+
+    }, {
+        key: "onColorActive",
+        value: function onColorActive(color) {
+            this.$element.trigger(ns + '.colorActive', [color]);
+        }
+    }, {
+        key: "onActiveColorClosed",
+        value: function onActiveColorClosed(color) {
+            this.$element.trigger(ns + '.activeColorClosed', [color]);
+        }
+    }, {
+        key: "onColorSelected",
+        value: function onColorSelected(color) {
+            this.setSelectedColor(color);
+        }
+        // Element/swatch events.
+
+    }, {
         key: "onElementAlter",
-        value: function onElementAlter(e) {
-            if (e.namespace === ns) return; // Stop here in this special case.
-            if (this.options.titleizeElement) {
-                this.$element.attr('title', this.elementOriginalTitleAttr || '');
-            }
-            if (this.options.colorizeElement) {
-                this.$element.css('color', this.elementOriginalCssColor || '');
-                this.$element.css('background', this.elementOriginalCssBackground || '');
-            }
-            this.$swatch.css('color', this.$element.val() || '#000');
+        value: function onElementAlter(e, via) {
+            if (via === this.ns) return;
+            if (this.elementIsInput) {
+                this.setSelectedColor($.trim(this.$element.val() || ''), false);
+            } else this.setSelectedColor('', false);
         }
     }, {
         key: "onSwatchClick",
         value: function onSwatchClick(e) {
-            Instance.picker.open({
-                openSearch: this.options.openSearch,
-                setActiveColor: this.$element.val() || '',
-                onSelect: this.onSelect.bind(this)
+            var _this2 = this;
+
+            e.preventDefault();
+            this.$swatch.addClass('-grow').one(this.animationEnd, function () {
+                _this2.$swatch.removeClass('-grow'), _this2.open(_this2.getSelectedColor());
             });
         }
+        // Public open/close utils.
+
     }, {
-        key: "onSelect",
-        value: function onSelect(color, picker) {
-            picker.close(); // Close color picker.
-            this.$element.val(color.hexString).trigger('change');
-            this.$swatch.css('color', color.hexString);
-            if (this.options.titleizeElement) {
-                this.$element.attr('title', color.name + ' (' + color.hexString + ')');
-            }
-            if (this.options.colorizeElement) {
-                this.$element.css({
-                    background: color.hexString,
-                    color: color.isDark ? '#fff' : '#000'
+        key: "open",
+        value: function open(hexKeyOrName) {
+            var options = {
+                onBeforeOpen: this.onBeforeOpen.bind(this),
+                onOpened: this.onOpened.bind(this),
+                onBeforeClose: this.onBeforeClose.bind(this),
+                onClosed: this.onClosed.bind(this),
+                onColorActive: this.onColorActive.bind(this),
+                onActiveColorClosed: this.onActiveColorClosed.bind(this),
+                onColorSelected: this.onColorSelected.bind(this),
+                showCodes: this.options.showCodes,
+                openSearch: this.options.openSearch
+            };
+            this.picker.open(options, hexKeyOrName);
+        }
+    }, {
+        key: "toggle",
+        value: function toggle() {
+            this.picker.toggle();
+        }
+    }, {
+        key: "close",
+        value: function close() {
+            this.picker.close();
+        }
+        // Public color utilities.
+
+    }, {
+        key: "getColors",
+        value: function getColors() {
+            return this.picker.getColors();
+        }
+    }, {
+        key: "getColorKeysByName",
+        value: function getColorKeysByName() {
+            return this.picker.getColorKeysByName();
+        }
+    }, {
+        key: "getColorKeysByHue",
+        value: function getColorKeysByHue() {
+            return this.picker.getColorKeysByHue();
+        }
+    }, {
+        key: "getColor",
+        value: function getColor(hexKeyOrName) {
+            return this.picker.getColor(hexKeyOrName);
+        }
+    }, {
+        key: "getActiveColor",
+        value: function getActiveColor() {
+            return this.picker.getActiveColor();
+        }
+    }, {
+        key: "setActiveColor",
+        value: function setActiveColor(hexKeyOrName) {
+            this.picker.setActiveColor(hexKeyOrName);
+        }
+    }, {
+        key: "getSelectedColor",
+        value: function getSelectedColor() {
+            return this.$hiddenElement.val() || '';
+        }
+    }, {
+        key: "setSelectedColor",
+        value: function setSelectedColor(hexKeyOrName) {
+            var updateElement = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+            var triggerEvents = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+            var color = void 0,
+                tiny = void 0; // Initialize only.
+            var defaultTiny = this.picker.defaultTiny;
+            var lightTiny = this.picker.lightTiny;
+            var darkTiny = this.picker.darkTiny;
+            if (hexKeyOrName && (color = this.picker.getColor(hexKeyOrName))) {
+                if (this.options.titleizeElement) {
+                    this.$element.attr('title', color.name + ' (' + color.hexString + ')');
+                }
+                if (this.options.colorizeElement) {
+                    this.$element.css({
+                        'background': color.hexString,
+                        'borderColor': color.tiny.clone().darken(10).toHexString(),
+                        'color': color.isDark ? lightTiny.toHexString() : darkTiny.toHexString()
+                    });
+                }
+                this.$swatch.css({
+                    'color': color.hexString,
+                    'background': this.swatchBgTiny(color.tiny).toHexString()
                 });
+                this.$hiddenElement.val(color.hexString);
+                if (this.elementIsInput && updateElement) {
+                    if (this.elementIsTextualInput) {
+                        this.$element.val(color.name);
+                    } else {
+                        this.$element.val(color.hexString);
+                    }
+                    if (triggerEvents) this.$element.trigger('change', this.ns);
+                }
+                if (triggerEvents) this.$hiddenElement.trigger('change', this.ns);
+                if (triggerEvents) this.$element.trigger(ns + '.colorSelected', [color.hexString, color]);
+            } else {
+                if (hexKeyOrName && typeof hexKeyOrName === 'string') if (!(tiny = tinycolor(hexKeyOrName)).isValid()) tiny = null;
+                if (this.options.titleizeElement) {
+                    this.$element.attr('title', tiny ? tiny.toHexString() : this.elementOriginalTitleAttr);
+                }
+                if (this.options.colorizeElement) {
+                    this.$element.css({
+                        'background': tiny ? tiny.toHexString() : this.elementOriginalCssBackground,
+                        'borderColor': tiny ? tiny.clone().darken(10).toHexString() : this.elementOriginalCssBorderColor,
+                        'color': tiny ? tiny.isDark() ? lightTiny.toHexString() : darkTiny.toHexString() : this.elementOriginalCssColor
+                    });
+                }
+                this.$swatch.css({
+                    'color': (tiny || defaultTiny).toHexString(),
+                    'background': this.swatchBgTiny(tiny || defaultTiny).toHexString()
+                });
+                this.$hiddenElement.val(tiny ? tiny.toHexString() : '');
+                if (this.elementIsInput && updateElement) {
+                    this.$element.val(tiny ? tiny.toHexString() : '');
+                    if (triggerEvents) this.$element.trigger('change', this.ns);
+                }
+                if (triggerEvents) this.$hiddenElement.trigger('change', this.ns);
+                if (triggerEvents && tiny) this.$element.trigger(ns + '.colorSelected', [tiny.toHexString(), undefined]);
             }
         }
+        // Misc. public utilities.
+
     }, {
         key: "destroy",
         value: function destroy() {
             var keepPicker = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
+            this.close();
             this.$swatch.remove();
-            if (this.options.mode === 'swatch-only') this.$element.show();
             this.$element.removeData(ns);
-            Instance.counter--;
-            this.instance = -1;
-            if (!Instance.counter && !keepPicker) {
-                Instance.picker.destroy();
-                delete Instance.picker;
+            if (this.options.mode === 'swatch-only') {
+                this.$element.show();
             }
+            instances.splice(this.instance - 1, 1);
+            if (!instances.length && !keepPicker) {
+                this.picker.destroy();
+                delete this.picker;
+                picker = undefined;
+            }
+        }
+        // Misc. utilities.
+
+    }, {
+        key: "swatchBgTiny",
+        value: function swatchBgTiny(tiny) {
+            var hexString = tiny.toHexString();
+            if (hexString === this.picker.lightTiny.toHexString()) {
+                return this.picker.darkTiny;
+            } else if (hexString === this.picker.darkTiny.toHexString()) {
+                return this.picker.lightTiny;
+            }
+            return tiny.clone()[tiny.getLuminance() <= .5 ? 'lighten' : 'darken'](10);
         }
     }, {
         key: "swatchMarkup",
         value: function swatchMarkup() {
             var markup = ''; // Initialize.
-            markup += '<span class="named-color-picker-swatch -' + this.options.mode + '" style="display:none;">';
-            markup += ' <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><g><path d="M57.6 0H6.4C3 0 0 3 0 6.4v51.2C0 61 3 64 6.4 64h51.2c3.5 0 6.4-3 6.4-6.4V6.4C64 3 61 0 57.6 0zM22.4 41.6H9.6V28.8h12.8v12.8zm0-19.2H9.6V9.6h12.8v12.8zm19.2 0H28.8V9.6h12.8v12.8z"/></g></svg>';
-            markup += '</span>';
+            markup += '<a class="named-color-picker-swatch -' + this.options.mode + '" style="display:none;" tabindex="-1" href="#">';
+            markup += ' <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><g><path fill-rule="nonzero" d="M0 0v64h64V0H0zm22.4 41.6H9.6V28.8h12.8v12.8zm0-19.2H9.6V9.6h12.8v12.8zm19.2 0H28.8V9.6h12.8v12.8z"/></g></svg>';
+            markup += '</a>';
             return markup;
         }
     }]);
@@ -2281,13 +2476,8 @@ var Instance = function () {
 }();
 
 exports.Instance = Instance;
-exports.default = $.fn.namedColorPicker = setup(); // Auto-setup (default export).
+exports.default = $.fn[ns] = setup();
 function setup() {
-    var _$ = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : $;
-
-    var _ns = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ns;
-
-    $ = _$, ns = _ns; // Allow these to be overridden when called upon directly.
     $('head').append('<style>' + require('../../../dist/styles/css/index.web.css') + '</style>');
     return function (x) {
         for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -2320,7 +2510,7 @@ function setup() {
 }
 exports.setup = setup;
 
-},{"../../../dist/styles/css/index.web.css":1,"./modules/picker":7,"@src-works/window-var":4,"jquery":undefined}],6:[function(require,module,exports){
+},{"../../../dist/styles/css/index.web.css":1,"./modules/picker":7,"jquery":undefined,"window-var":4}],6:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2336,48 +2526,48 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var namedColorVars = require("@src-works/named-color-vars");
-var window_var_1 = require("@src-works/window-var");
-var ns = 'namedColorPicker';
+var window_var_1 = require("window-var");
+var namedColorVars = require("named-color-vars");
 var $ = window_var_1.win.jQuery || window_var_1.win.$ || require('jquery');
 var tinycolor = window_var_1.win.tinycolor || require('tinycolor2');
-if (!$.fn.select2) require('select2'); // jQuery extension.
+if (!$.fn.selectize) require('selectize'); // jQuery extension.
+var ns = 'namedColorPicker';
+var ss = 'named-color-picker';
+var instanceCounter = 0;
+var instances = [];
 
 var Instance = function () {
-    // Constructor.
-    function Instance(instance, options) {
+    // Public constructor.
+    function Instance(options) {
         _classCallCheck(this, Instance);
 
         this.emPixels = 0;
         this.searchIcon = '';
         this.totalGridColors = 0;
-        this.instance = instance; // Instance number.
-        this.options = $.extend({}, {
+        this.instance = instanceCounter = instanceCounter + 1;
+        this.ns = ns + String(this.instance);
+        this.ss = ss + '-' + this.instance;
+        instances.splice(this.instance - 1, 0, this);
+        this.options = $.extend(true, {}, {
             i18n: {
                 copied: 'copied',
-                select: 'Select',
-                searchColors: 'Search Colors'
+                select: 'select',
+                searchColors: 'search',
+                promptCopyFallback: 'press ctrl+c to copy:'
             }
         }, options || {});
-        this.$window = $(window_var_1.win);
-        this.$document = $(window_var_1.win.document);
-        this.windowWidth = this.$window.width();
-        this.windowHeight = this.$window.height();
-        this.$head = $('head');
-        this.$body = $('body');
-        this.$picker = $(this.pickerMarkup());
-        this.$picker.data(ns, this);
+        this.$window = $(window_var_1.win), this.$document = $(window_var_1.win.document);
+        this.$html = $('html'), this.$head = $('head'), this.$body = $('body');
+        this.$picker = $(this.pickerMarkup()), this.$picker.data(ns, this);
         this.$body.append(this.$picker);
-        this.$info = this.$picker.find('> .-info');
-        this.$grid = this.$picker.find('> .-grid');
-        this.$search = this.$picker.find('> .-search');
-        this.$searchSelect = this.$search.find('> select');
-        this.$searchOverlay = this.$picker.find('> .-search-overlay');
+        this.$info = this.$picker.find('> .-info'), this.$grid = this.$picker.find('> .-grid');
+        this.$search = this.$picker.find('> .-search'), this.$searchSelect = this.$search.find('> select'), this.$searchOverlay = this.$picker.find('> .-search-overlay');
         this.$textarea = this.$picker.find('> .-textarea');
         this.emPixels = parseInt(getComputedStyle(this.$picker[0]).fontSize);
         this.searchIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 446.3 446.3"><g><path d="M318.8 280.5h-20.5l-7.6-7.7c25.5-28 40.8-66.2 40.8-107 0-92-74-165.8-165.8-165.8S0 74 0 165.8s74 165.7 165.8 165.7c40.7 0 79-15.3 107-40.8l7.7 7.6v20.4L408 446.3l38.3-38.3-127.6-127.5zm-153 0C102 280.5 51 229.5 51 165.7S102 51 165.8 51s114.7 51 114.7 114.8-51 114.7-114.8 114.7z"/></g></svg>';
-        this.setupColors();
-        this.setupEvents();
+        this.windowWidth = this.$window.width(), this.windowHeight = this.$window.height(), this.windowScrollTop = this.$window.scrollTop();
+        this.defaultTiny = tinycolor('#000000'), this.lightTiny = tinycolor('#ffffff'), this.darkTiny = tinycolor('#000000');
+        this.setupColors(), this.setupSearchSelect(), this.setupEvents();
     }
     // Setup helpers.
 
@@ -2388,12 +2578,14 @@ var Instance = function () {
             var _this = this;
 
             this.colorVars = namedColorVars.colors;
-            this.colors = {}; // Initialize.
+            this.colorsByHex = {};
+            this.colors = {};
             $.each(this.colorVars, function (key, hex) {
                 _this.colors[key] = _this.colorProps(key, hex);
+                _this.colorsByHex[hex] = _this.colors[key];
             });
+            this.colorKeysByName = this.sortColorKeys(this.colors, 'name');
             this.colorKeysByHue = this.sortColorKeys(this.colors, 'hue');
-            this.colorKeyByName = this.sortColorKeys(this.colors, 'name');
             this.colorKeysByHue.forEach(function (key) {
                 var color = _this.colors[key];
                 var $anchor = $(_this.colorAnchorMarkup(color));
@@ -2403,105 +2595,146 @@ var Instance = function () {
             });
             this.$grid.prepend($(this.searchAnchorMarkup()));
             this.totalGridColors++; // One more color.
-            this.colorOptions = [], this.colorKeyByName.forEach(function (key) {
+            this.colorOptions = [], this.colorKeysByName.forEach(function (key) {
                 var color = _this.colors[key];
-                var $option = $(_this.colorOptionMarkup(color));
+                var markup = _this.colorOptionMarkup(color);
                 _this.colorOptions.push({
-                    color: color,
-                    $option: $option,
-                    index: _this.colorOptions.length,
-                    id: color.slug,
-                    text: color.name
+                    value: color.key,
+                    text: color.name,
+                    markup: markup
                 });
+            });
+        }
+    }, {
+        key: "setupSearchSelect",
+        value: function setupSearchSelect() {
+            this.$searchSelect.selectize({
+                options: this.colorOptions,
+                dropdownParent: this.$search,
+                placeholder: this.options.i18n.searchColors,
+                render: {
+                    item: function item(data) {
+                        return $('<div>' + data.markup + '</div>');
+                    },
+                    option: function option(data) {
+                        return $('<div>' + data.markup + '</div>');
+                    }
+                },
+                diacritics: false,
+                closeAfterSelect: true,
+                maxOptions: Math.min(50, this.colorOptions.length)
             });
         }
     }, {
         key: "setupEvents",
         value: function setupEvents() {
-            this.$window.on('resize.' + ns, this.onWindowResize.bind(this));
-            this.$grid.on('click.' + ns, '> .-color', this.onColorClick.bind(this));
-            this.$info.on('click.' + ns, '> .-hex, > .-rgb, > .-hsl, > .-hsv', this.onInfoCopyClick.bind(this));
-            this.$info.on('click.' + ns, '> .-select', this.onInfoSelectClick.bind(this));
-            this.$searchOverlay.on('click.' + ns, this.onSearchOverlayClick.bind(this));
-            this.$searchSelect.on('select2:select.' + ns, this.onSearchSelect.bind(this));
+            this.$grid.on('click.' + this.ns, '> .-color', this.onColorClick.bind(this));
+            this.$info.on('click.' + this.ns, '> .-hex, > .-rgb, > .-hsl, > .-hsv', this.onInfoCopyClick.bind(this));
+            this.$info.on('click.' + this.ns, '> .-select', this.onInfoSelectClick.bind(this));
+            this.$searchSelect[0].selectize.on('item_add', this.onSearchSelect.bind(this));
+            this.$searchOverlay.on('click.' + this.ns, this.onSearchOverlayClick.bind(this));
+            this.$window.on('resize.' + this.ns, this.onWindowResize.bind(this));
+            this.$document.on('keyup.' + this.ns, this.onDocumentKeyup.bind(this));
         }
         // Event handlers.
 
+    }, {
+        key: "onColorClick",
+        value: function onColorClick(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var $anchor = $(e.currentTarget);
+            var color = $anchor.data('color');
+            if ($anchor.hasClass('-search')) {
+                this.toggleSearch();
+            } else if ($anchor.hasClass('-active')) {
+                this.closeActiveColor();
+            } else if (color) {
+                this.setActiveColor(color);
+            }
+        }
+    }, {
+        key: "onInfoCopyClick",
+        value: function onInfoCopyClick(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.copyText($.trim($(e.target).text()));
+        }
+    }, {
+        key: "onInfoSelectClick",
+        value: function onInfoSelectClick(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.selectActiveColor();
+        }
+    }, {
+        key: "onSearchSelect",
+        value: function onSearchSelect(key) {
+            this.setActiveColor(key);
+        }
+    }, {
+        key: "onSearchOverlayClick",
+        value: function onSearchOverlayClick(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.closeSearch();
+        }
     }, {
         key: "onWindowResize",
         value: function onWindowResize(e) {
             this.resizeGrid(); // Resize grid colors.
         }
     }, {
-        key: "onColorClick",
-        value: function onColorClick(e) {
-            var $color = $(e.currentTarget);
-            if ($color.hasClass('-search')) {
-                return this.toggleSearch();
-            } else if ($color.hasClass('-active')) {
-                return this.closeActiveColor();
-            }
-            this.closeSearch();
-            this.closeActiveColor();
-            var color = $color.data('color');
-            $color.addClass('-active');
-            this.$info.html(this.infoMarkup(color)).show();
-            var infoCssData = this.infoCssData($color, color);
-            this.$info.css(infoCssData.css).attr('class', '-info ' + infoCssData.arrowClass);
-            if (infoCssData.arrowClass && infoCssData.arrowStyles) {
-                this.$head.append(this.infoArrowStylesMarkup(infoCssData.arrowClass, infoCssData.arrowStyles));
-            }
+        key: "onDocumentKeyup",
+        value: function onDocumentKeyup(e) {
+            if (e.keyCode !== 27) return;
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            this.close();
         }
-    }, {
-        key: "onInfoCopyClick",
-        value: function onInfoCopyClick(e) {
-            var $this = $(e.target);
-            var text = $.trim($this.text());
-            var $copied = this.$info.find('> .-copied');
-            this.$textarea.val(text).select();
-            document.execCommand('copy');
-            this.$textarea.val('').blur();
-            $copied.css('visibility', 'visible');
-            setTimeout(function () {
-                return $copied.css('visibility', 'hidden');
-            }, 500);
-        }
-    }, {
-        key: "onInfoSelectClick",
-        value: function onInfoSelectClick(e) {
-            if (typeof this.onSelect === 'function') {
-                this.onSelect(this.getActiveColor(), this);
-            } else {
-                this.close(); // Close picker.
-            }
-        }
-    }, {
-        key: "onSearchSelect",
-        value: function onSearchSelect(e) {
-            this.setActiveColor(e.params.data.color.key);
-        }
-    }, {
-        key: "onSearchOverlayClick",
-        value: function onSearchOverlayClick(e) {
-            this.closeSearch();
-        }
-        // Public API.
+        // Public open/close utilities.
 
     }, {
         key: "open",
-        value: function open(options) {
+        value: function open(options, hexKeyOrName) {
+            options = $.extend({}, {
+                onBeforeOpen: undefined,
+                onOpened: undefined,
+                onBeforeClose: undefined,
+                onClosed: undefined,
+                onColorActive: undefined,
+                onActiveColorClosed: undefined,
+                onColorSelected: undefined,
+                showCodes: true,
+                openSearch: false
+            }, options || {});
+            this.onBeforeOpen = options.onBeforeOpen;
+            this.onOpened = options.onOpened;
+            this.onBeforeClose = options.onBeforeClose;
+            this.onClosed = options.onClosed;
+            this.onColorActive = options.onColorActive;
+            this.onActiveColorClosed = options.onActiveColorClosed;
+            this.onColorSelected = options.onColorSelected;
+            this.showCodes = options.showCodes;
+            if (typeof this.onBeforeOpen === 'function') {
+                this.onBeforeOpen();
+            }
+            this.closeOthers();
             this.closeSearch();
             this.closeActiveColor();
-            this.$picker.show();
-            options = $.extend({}, {
-                openSearch: false,
-                setActiveColor: '',
-                onSelect: undefined
-            }, options || {});
-            this.resizeGrid();
-            this.onSelect = options.onSelect;
-            if (options.openSearch) this.openSearch();
-            if (options.setActiveColor) this.setActiveColor(options.setActiveColor);
+            if (!this.$picker.is(':visible')) {
+                this.windowScrollTop = this.$window.scrollTop();
+            } // Remember `scrollTop()` before showing picker.
+            this.$picker.show(), this.resizeGrid();
+            this.$html.addClass(ss + '-open');
+            if (hexKeyOrName) {
+                this.setActiveColor(hexKeyOrName);
+            } else if (options.openSearch) {
+                this.openSearch();
+            }
+            if (typeof this.onOpened === 'function') {
+                this.onOpened();
+            }
         }
     }, {
         key: "toggle",
@@ -2517,59 +2750,112 @@ var Instance = function () {
     }, {
         key: "close",
         value: function close() {
+            var restoreScrollTop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+            if (typeof this.onBeforeClose === 'function') {
+                this.onBeforeClose();
+            }
             this.closeSearch();
             this.closeActiveColor();
             this.$picker.hide();
             this.removeGridStyles();
-            this.onSelect = undefined;
+            this.$html.removeClass(ss + '-open');
+            if (restoreScrollTop) {
+                this.$window.scrollTop(this.windowScrollTop);
+            }
+            if (typeof this.onClosed === 'function') {
+                this.onClosed();
+            }
+            this.onBeforeOpen = undefined;
+            this.onOpened = undefined;
+            this.onBeforeClose = undefined;
+            this.onClosed = undefined;
+            this.onColorActive = undefined;
+            this.onActiveColorClosed = undefined;
+            this.onColorSelected = undefined;
+            this.showCodes = true;
+        }
+        // Public color utilities.
+
+    }, {
+        key: "getColors",
+        value: function getColors() {
+            return this.colors;
         }
     }, {
-        key: "resizeGrid",
-        value: function resizeGrid() {
-            if (!this.$picker.is(':visible')) return; // Not possible.
-            var gridPadding = 1,
-                colorMargin = 1;
-            this.windowWidth = this.$window.width();
-            this.windowHeight = this.$window.height();
-            var gridInnerWidth = this.$grid.innerWidth();
-            var gridInnerHeight = this.$grid.innerHeight();
-            var gridWidth = gridInnerWidth - gridPadding * 2;
-            var gridHeight = gridInnerHeight - gridPadding * 2;
-            var colorSize = this.optimalColorSize(gridWidth, gridHeight, this.totalGridColors);
-            colorSize = colorSize - colorMargin * 2; // Excluding margin.
-            this.removeGridStyles(); // Remove previous styles, before adding.
-            this.$head.append(this.gridStylesMarkup(gridPadding, colorMargin, colorSize));
+        key: "getColorKeysByName",
+        value: function getColorKeysByName() {
+            return this.colorKeysByName;
         }
     }, {
-        key: "setActiveColor",
-        value: function setActiveColor(x) {
-            if (!this.$picker.is(':visible')) return; // Not possible.
-            var key = (typeof x === "undefined" ? "undefined" : _typeof(x)) === 'object' && x.key ? x.key : String(x);
-            this.$grid.find('> .-color[href="#' + key + '"]').click();
+        key: "getColorKeysByHue",
+        value: function getColorKeysByHue() {
+            return this.colorKeysByHue;
         }
     }, {
         key: "getActiveColor",
         value: function getActiveColor() {
-            if (!this.$picker.is(':visible')) return; // Not possible.
             var $color = this.$grid.find('> .-color.-active');
             return $color.data('color') || undefined;
         }
     }, {
-        key: "closeActiveColor",
-        value: function closeActiveColor() {
-            this.$info.hide().html(''), this.removeInfoStyles();
-            this.$grid.find('> .-color.-active').removeClass('-active');
+        key: "setActiveColor",
+        value: function setActiveColor(hexKeyOrName) {
+            if (!this.$picker.is(':visible')) return; // Not possible.
+            var color = this.getColor(hexKeyOrName);
+            if (!color) return; // Not possible.
+            var $color = this.$grid.find('> .-color[href="#' + color.key + '"]');
+            if (!$color.length) return; // Not possible.
+            this.closeSearch();
+            this.closeActiveColor();
+            $color.addClass('-active');
+            this.$info.html(this.infoMarkup(color)).fadeIn(150);
+            var infoCssData = this.infoCssData($color, color);
+            this.$info.css(infoCssData.css).attr('class', '-info ' + infoCssData.arrowClass);
+            this.$info.find('> .-select').css(infoCssData.selectCss);
+            if (infoCssData.arrowClass && infoCssData.arrowStyles) {
+                this.$head.append(this.infoArrowStylesMarkup(infoCssData.arrowClass, infoCssData.arrowStyles));
+            }
+            if (typeof this.onColorActive === 'function') {
+                this.onColorActive(this.getActiveColor());
+            }
         }
     }, {
+        key: "selectActiveColor",
+        value: function selectActiveColor() {
+            if (typeof this.onColorSelected === 'function') {
+                this.onColorSelected(this.getActiveColor());
+            }
+            this.close(); // Close picker.
+        }
+    }, {
+        key: "closeActiveColor",
+        value: function closeActiveColor() {
+            var $color = this.$grid.find('> .-color.-active');
+            if (!$color.length) return;
+            this.$info.hide();
+            this.$info.html('');
+            this.removeInfoStyles();
+            $color.removeClass('-active');
+            if (typeof this.onActiveColorClosed === 'function') {
+                this.onActiveColorClosed($color.data('color'));
+            }
+        }
+        // Public search utilities.
+
+    }, {
         key: "openSearch",
-        value: function openSearch() {
+        value: function openSearch(hexKeyOrName) {
             if (!this.$picker.is(':visible')) return; // Not possible.
             this.closeActiveColor();
             this.$searchOverlay.show();
             this.$search.show();
-            this.maybeInitSearchSelect2();
-            this.$searchSelect.val('').trigger('change');
-            this.$searchSelect.select2('open');
+            this.$searchSelect[0].selectize.clear();
+            this.$searchSelect[0].selectize.open();
+            if (hexKeyOrName) {
+                var color = this.getColor(hexKeyOrName);
+                if (color) this.$searchSelect[0].selectize.setTextboxValue(color.name);
+            }
         }
     }, {
         key: "toggleSearch",
@@ -2585,30 +2871,141 @@ var Instance = function () {
     }, {
         key: "closeSearch",
         value: function closeSearch() {
+            this.$searchSelect[0].selectize.close();
             this.$search.hide();
             this.$searchOverlay.hide();
+        }
+        // Misc. public utilities.
+
+    }, {
+        key: "debounce",
+        value: function debounce(f, delay) {
+            var timeout = void 0; // Timeout handle.
+            return function () {
+                var _this2 = this;
+
+                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                    args[_key] = arguments[_key];
+                }
+
+                if (timeout) clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    return f.apply(_this2, args);
+                }, delay);
+            };
+        }
+    }, {
+        key: "getColor",
+        value: function getColor(hexKeyOrName) {
+            if ((typeof hexKeyOrName === "undefined" ? "undefined" : _typeof(hexKeyOrName)) === 'object') {
+                return hexKeyOrName; // Color.
+            } else if (hexKeyOrName.indexOf('#') === 0) {
+                var hex = hexKeyOrName; // Hex code.
+                if (this.colorsByHex[hex]) {
+                    return this.colorsByHex[hex];
+                }
+            } else {
+                var name = hexKeyOrName;
+                var key = this.colorNameToKey(name);
+                if (this.colors[key]) {
+                    return this.colors[key];
+                }
+            }
         }
     }, {
         key: "destroy",
         value: function destroy() {
-            this.close();
+            this.close(false);
             this.removeInfoStyles();
             this.removeGridStyles();
-            this.maybeDestroySearchSelect2();
-            this.$window.off('resize' + ns);
+            this.destroySearchSelect();
+            this.$window.off('resize.' + this.ns);
             this.$picker.remove();
+            instances.splice(this.instance - 1, 1);
         }
-        // Utilities.
+        // Other misc. utilities.
 
     }, {
-        key: "removeGridStyles",
-        value: function removeGridStyles() {
-            this.$head.find('.named-color-picker-grid-styles-' + this.instance).remove();
+        key: "closeOthers",
+        value: function closeOthers() {
+            var _this3 = this;
+
+            instances.forEach(function (instance, i) {
+                if (i !== _this3.instance - 1) instance.close(false);
+            });
         }
     }, {
-        key: "removeInfoStyles",
-        value: function removeInfoStyles() {
-            this.$head.find('.named-color-picker-info-styles-' + this.instance).remove();
+        key: "resizeGrid",
+        value: function resizeGrid() {
+            if (!this.$picker.is(':visible')) return; // Not possible.
+            this.windowWidth = this.$window.width();
+            this.windowHeight = this.$window.height();
+            var gridPadding = 3,
+                colorMargin = 3;
+            if (this.windowWidth < 768) {
+                gridPadding = 1, colorMargin = 1;
+            }
+            var gridInnerWidth = this.$grid.innerWidth();
+            var gridInnerHeight = this.$grid.innerHeight();
+            var gridWidth = gridInnerWidth - gridPadding * 2;
+            var gridHeight = gridInnerHeight - gridPadding * 2;
+            var colorSize = this.optimalColorSize(gridWidth, gridHeight, this.totalGridColors);
+            colorSize = colorSize - colorMargin * 2; // Excluding margin.
+            this.removeGridStyles(); // Remove previous styles, before adding.
+            this.$head.append(this.gridStylesMarkup(gridPadding, colorMargin, colorSize));
+        }
+    }, {
+        key: "copyText",
+        value: function copyText(text) {
+            var $copied = this.$info.find('> .-copied');
+            this.$textarea.val(text).select();
+            try {
+                if (!window_var_1.win.document.queryCommandSupported('copy')) {
+                    this.promptCopy(text);
+                } else if (!window_var_1.win.document.queryCommandEnabled('copy')) {
+                    this.promptCopy(text);
+                } else if (!window_var_1.win.document.execCommand('copy', false, null)) {
+                    this.promptCopy(text);
+                } else {
+                    $copied.css('visibility', 'visible');
+                    setTimeout(function () {
+                        return $copied.css('visibility', 'hidden');
+                    }, 500);
+                }
+            } catch (exception) {
+                this.promptCopy(text);
+            }
+            this.$textarea.val('').blur();
+        }
+    }, {
+        key: "promptCopy",
+        value: function promptCopy(text) {
+            window_var_1.win.prompt(this.options.i18n.promptCopyFallback, text);
+        }
+    }, {
+        key: "colorKeyToSlug",
+        value: function colorKeyToSlug(key) {
+            return key.replace(/[A-Z]/g, function (m) {
+                return '-' + m.toLowerCase();
+            });
+        }
+    }, {
+        key: "colorKeyToName",
+        value: function colorKeyToName(key) {
+            return key.replace(/[A-Z]/g, function (m) {
+                return ' ' + m;
+            }).replace(/^./, function (m) {
+                return m.toUpperCase();
+            });
+        }
+    }, {
+        key: "colorNameToKey",
+        value: function colorNameToKey(name) {
+            return name.replace(/\s+([a-z])/gi, function (m, $1) {
+                return $1.toUpperCase();
+            }).replace(/^./, function (m) {
+                return m.toLowerCase();
+            });
         }
     }, {
         key: "colorProps",
@@ -2616,14 +3013,8 @@ var Instance = function () {
             var tinyColor = tinycolor(hex);
             return {
                 key: key,
-                slug: key.replace(/[A-Z]/g, function (m) {
-                    return '-' + m.toLowerCase();
-                }),
-                name: key.replace(/[A-Z]/g, function (m) {
-                    return ' ' + m;
-                }).replace(/^./, function (m) {
-                    return m.toUpperCase();
-                }),
+                slug: this.colorKeyToSlug(key),
+                name: this.colorKeyToName(key),
                 hex: tinyColor.toHex(),
                 rgb: tinyColor.toRgb(),
                 hsl: tinyColor.toHsl(),
@@ -2633,7 +3024,8 @@ var Instance = function () {
                 hslString: tinyColor.toHslString(),
                 hsvString: tinyColor.toHsvString(),
                 isDark: tinyColor.isDark(),
-                isLight: tinyColor.isLight()
+                isLight: tinyColor.isLight(),
+                tiny: tinyColor
             };
         }
     }, {
@@ -2669,36 +3061,27 @@ var Instance = function () {
             return Math.max(sx, sy);
         }
     }, {
-        key: "maybeInitSearchSelect2",
-        value: function maybeInitSearchSelect2() {
-            var _this2 = this;
-
-            if (this.$searchSelect.data('initialized')) return; // Did this already.
-            this.$searchSelect.select2({
-                allowClear: true,
-                data: this.colorOptions,
-                dropdownParent: this.$search,
-                placeholder: this.options.i18n.searchColors,
-                templateResult: function templateResult(data) {
-                    if (data && typeof data.index === 'number') return _this2.colorOptions[data.index].$option;
-                    return data && data.text ? data.text : '';
-                }
-            }).data('initialized', true);
+        key: "destroySearchSelect",
+        value: function destroySearchSelect() {
+            this.$searchSelect[0].selectize.destroy();
         }
     }, {
-        key: "maybeDestroySearchSelect2",
-        value: function maybeDestroySearchSelect2() {
-            if (this.$searchSelect.data('initialized')) return; // Nothing to destroy.
-            this.$searchSelect.select2('destroy');
-            this.$searchSelect.removeData('initialized');
+        key: "removeGridStyles",
+        value: function removeGridStyles() {
+            this.$head.find('.' + this.ss + '-grid-styles').remove();
         }
-        // Markup utils.
+    }, {
+        key: "removeInfoStyles",
+        value: function removeInfoStyles() {
+            this.$head.find('.' + this.ss + '-info-styles').remove();
+        }
+        // Markup utilities.
 
     }, {
         key: "pickerMarkup",
         value: function pickerMarkup() {
             var markup = ''; // Initialize.
-            markup += '<div class="named-color-picker named-color-picker-' + this.instance + '">';
+            markup += '<div class="' + ss + ' ' + this.ss + '">';
             markup += '  <div class="-grid"></div>';
             markup += '  <div class="-info"></div>';
             markup += '  <div class="-search-overlay"></div>';
@@ -2711,9 +3094,9 @@ var Instance = function () {
         key: "gridStylesMarkup",
         value: function gridStylesMarkup(gridPadding, colorMargin, colorSize) {
             var markup = ''; // Initialize.
-            markup += '<style class="named-color-picker-grid-styles-' + this.instance + '">';
-            markup += '.named-color-picker-' + this.instance + ' > .-grid { padding: ' + gridPadding + 'px; }';
-            markup += '.named-color-picker-' + this.instance + ' > .-grid > .-color {';
+            markup += '<style class="' + this.ss + '-grid-styles">';
+            markup += '.' + this.ss + ' > .-grid { padding: ' + gridPadding + 'px; }';
+            markup += '.' + this.ss + ' > .-grid > .-color {';
             markup += '  margin:' + colorMargin + 'px; width:' + colorSize + 'px; height:' + colorSize + 'px;';
             markup += '}';
             markup += '</style>';
@@ -2722,7 +3105,7 @@ var Instance = function () {
     }, {
         key: "colorAnchorMarkup",
         value: function colorAnchorMarkup(color) {
-            return '<a class="-color" style="background-color:' + color.hexString + ';" href="#' + color.key + '"></a>';
+            return '<a class="-color" style="background-color:' + color.hexString + ';" title="' + color.name + '" href="#' + color.key + '"></a>';
         }
     }, {
         key: "searchAnchorMarkup",
@@ -2737,42 +3120,53 @@ var Instance = function () {
     }, {
         key: "infoMarkup",
         value: function infoMarkup(color) {
-            var markup = ''; // Initialize.
+            var sc = this.showCodes;
+            var markup = ''; // Initialize markup.
             markup += '<div class="-title">' + color.name + '</div>';
-            markup += '<a class="-hex" href="#">' + color.hexString + '</a>';
-            markup += '<a class="-rgb" href="#">' + color.rgbString + '</a>';
-            markup += '<a class="-hsl" href="#">' + color.hslString + '</a>';
-            markup += '<a class="-hsv" href="#">' + color.hsvString + '</a>';
-            markup += '<div class="-copied">' + this.options.i18n.copied + '</div>';
-            if (this.onSelect !== null) {
-                markup += '<button type="button" class="-select">' + this.options.i18n.select + '</button>';
+            if (sc === true || sc instanceof Array && sc.indexOf('hex') !== -1) {
+                markup += '<a class="-hex" href="#">' + color.hexString + '</a>';
             }
+            if (sc === true || sc instanceof Array && sc.indexOf('rgb') !== -1) {
+                markup += '<a class="-rgb" href="#">' + color.rgbString + '</a>';
+            }
+            if (sc === true || sc instanceof Array && sc.indexOf('hsl') !== -1) {
+                markup += '<a class="-hsl" href="#">' + color.hslString + '</a>';
+            }
+            if (sc === true || sc instanceof Array && sc.indexOf('hsv') !== -1) {
+                markup += '<a class="-hsv" href="#">' + color.hsvString + '</a>';
+            }
+            if (sc === true || sc instanceof Array && sc.length > 0) {
+                markup += '<div class="-copied">' + this.options.i18n.copied + '</div>';
+            }
+            markup += '<a class="-select" href="#">' + this.options.i18n.select + '</a>';
             return markup;
         }
     }, {
         key: "infoArrowStylesMarkup",
         value: function infoArrowStylesMarkup(arrowClass, styles) {
             var markup = ''; // Initialize.
-            markup += '<style class="named-color-picker-info-styles-' + this.instance + '">';
-            markup += '.named-color-picker' + this.instance + ' > .-info.' + arrowClass.replace(/\s/g, '.') + '::after {';
+            markup += '<style class="' + this.ss + '-info-styles">';
+            markup += '.' + this.ss + ' > .-info.' + arrowClass.replace(/\s/g, '.') + '::after {';
             markup += '  ' + styles;
             markup += '}';
             markup += '</style>';
             return markup;
         }
-        // CSS data utils.
+        // CSS data utilities.
 
     }, {
         key: "infoCssData",
         value: function infoCssData($color, color) {
             var css = {
-                top: 'auto',
-                right: 'auto',
-                bottom: 'auto',
-                left: 'auto',
-                backgroundColor: color.hexString,
-                color: color.isDark ? '#fff' : '#000'
-            }; // Initialize.
+                top: 'auto', right: 'auto', bottom: 'auto', left: 'auto',
+                color: color.isDark ? this.lightTiny.toHexString() : this.darkTiny.toHexString(),
+                backgroundImage: 'linear-gradient(to bottom, ' + color.hexString + ', ' + color.tiny.clone().darken(10).toHexString() + ')'
+            };
+            var selectCss = {
+                borderColor: color.tiny.clone().darken(15).toHexString(),
+                color: color.isDark ? this.lightTiny.toHexString() : this.darkTiny.toHexString(),
+                backgroundImage: 'linear-gradient(to bottom, ' + color.hexString + ', ' + color.tiny.clone().darken(5).toHexString() + ')'
+            };
             var spacing = .75 * this.emPixels;
             var arrowClass = '',
                 arrowStyles = '';
@@ -2824,6 +3218,7 @@ var Instance = function () {
             }
             var data = {
                 css: css,
+                selectCss: selectCss,
                 arrowClass: arrowClass,
                 arrowStyles: arrowStyles
             };
@@ -2837,5 +3232,5 @@ var Instance = function () {
 exports.Instance = Instance;
 exports.default = Instance;
 
-},{"@src-works/named-color-vars":3,"@src-works/window-var":4,"jquery":undefined,"select2":undefined,"tinycolor2":undefined}]},{},[6])(6)
+},{"jquery":undefined,"named-color-vars":3,"selectize":undefined,"tinycolor2":undefined,"window-var":4}]},{},[6])(6)
 });

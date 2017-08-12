@@ -1,21 +1,30 @@
 import * as t from './types';
-import * as namedColorVars from '@src-works/named-color-vars';
-import { win } from '@src-works/window-var';
+import { win } from 'window-var';
+import * as namedColorVars from 'named-color-vars';
 
-let ns: string = 'namedColorPicker';
 let $: JQueryStatic = win.jQuery || win.$ || require('jquery');
 let tinycolor: tinycolor = win.tinycolor || require('tinycolor2');
-if (!$.fn.select2) require('select2'); // jQuery extension.
+if (!$.fn.selectize) require('selectize'); // jQuery extension.
+
+let ns: string = 'namedColorPicker';
+let ss: string = 'named-color-picker';
+
+let instanceCounter: number = 0;
+let instances: Instance[] = [];
 
 export class Instance {
+  // Protected props.
+
+  protected ns: string;
+  protected ss: string;
+
   protected instance: number;
+  protected options: t.Options;
 
   protected $window: JQuery;
   protected $document: JQuery;
 
-  protected windowWidth: number;
-  protected windowHeight: number;
-
+  protected $html: JQuery;
   protected $head: JQuery;
   protected $body: JQuery;
 
@@ -33,187 +42,263 @@ export class Instance {
   protected emPixels: number = 0;
   protected searchIcon: string = '';
 
+  protected windowWidth: number;
+  protected windowHeight: number;
+  protected windowScrollTop: number;
+
   protected colorVars: namedColorVars.Colors;
+  protected colorsByHex: t.Colors;
   protected colors: t.Colors;
 
+  protected colorKeysByName: string[];
   protected colorKeysByHue: string[];
-  protected colorKeyByName: string[];
 
   protected colorOptions: t.ColorOption[];
   protected totalGridColors: number = 0;
 
-  protected options: t.Options;
-  protected onSelect: Function | null | undefined;
+  protected onBeforeOpen: Function | undefined;
+  protected onOpened: Function | undefined;
 
-  // Constructor.
+  protected onBeforeClose: Function | undefined;
+  protected onClosed: Function | undefined;
 
-  public constructor(instance: number, options?: t.OptionsArg) {
-    this.instance = instance; // Instance number.
+  protected onColorActive: Function | undefined;
+  protected onActiveColorClosed: Function | undefined;
+  protected onColorSelected: Function | undefined;
 
-    this.options = <t.Options>$.extend({}, {
+  protected showCodes: boolean | Array<string>;
+
+  // Public props.
+
+  public defaultTiny: tinycolorInstance;
+  public lightTiny: tinycolorInstance;
+  public darkTiny: tinycolorInstance;
+
+  // Public constructor.
+
+  public constructor(options?: t.OptionsArg) {
+    this.instance = (instanceCounter = instanceCounter + 1);
+    this.ns = ns + String(this.instance);
+    this.ss = ss + '-' + this.instance;
+    instances.splice(this.instance - 1, 0, this);
+
+    this.options = <t.Options>$.extend(true, {}, {
       i18n: {
         copied: 'copied',
-        select: 'Select',
-        searchColors: 'Search Colors',
-      }
+        select: 'select',
+        searchColors: 'search',
+        promptCopyFallback: 'press ctrl+c to copy:',
+      },
     }, options || {});
 
-    this.$window = $(win);
-    this.$document = $(win.document);
+    this.$window = $(win),
+      this.$document = $(win.document);
 
-    this.windowWidth = this.$window.width();
-    this.windowHeight = this.$window.height();
+    this.$html = $('html'),
+      this.$head = $('head'),
+      this.$body = $('body');
 
-    this.$head = $('head');
-    this.$body = $('body');
-
-    this.$picker = $(this.pickerMarkup());
-    this.$picker.data(ns, this);
+    this.$picker = $(this.pickerMarkup()),
+      this.$picker.data(ns, this);
     this.$body.append(this.$picker);
 
-    this.$info = this.$picker.find('> .-info');
-    this.$grid = this.$picker.find('> .-grid');
+    this.$info = this.$picker.find('> .-info'),
+      this.$grid = this.$picker.find('> .-grid');
 
-    this.$search = this.$picker.find('> .-search');
-    this.$searchSelect = this.$search.find('> select');
-    this.$searchOverlay = this.$picker.find('> .-search-overlay');
+    this.$search = this.$picker.find('> .-search'),
+      this.$searchSelect = this.$search.find('> select'),
+      this.$searchOverlay = this.$picker.find('> .-search-overlay');
 
     this.$textarea = this.$picker.find('> .-textarea');
-
     this.emPixels = parseInt(<string>getComputedStyle(this.$picker[ 0 ]).fontSize);
     this.searchIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 446.3 446.3"><g><path d="M318.8 280.5h-20.5l-7.6-7.7c25.5-28 40.8-66.2 40.8-107 0-92-74-165.8-165.8-165.8S0 74 0 165.8s74 165.7 165.8 165.7c40.7 0 79-15.3 107-40.8l7.7 7.6v20.4L408 446.3l38.3-38.3-127.6-127.5zm-153 0C102 280.5 51 229.5 51 165.7S102 51 165.8 51s114.7 51 114.7 114.8-51 114.7-114.8 114.7z"/></g></svg>';
 
-    this.setupColors();
-    this.setupEvents();
+    this.windowWidth = <number>this.$window.width(),
+      this.windowHeight = <number>this.$window.height(),
+      this.windowScrollTop = <number>this.$window.scrollTop();
+
+    this.defaultTiny = tinycolor('#000000'),
+      this.lightTiny = tinycolor('#ffffff'),
+      this.darkTiny = tinycolor('#000000');
+
+    this.setupColors(), this.setupSearchSelect(), this.setupEvents();
   }
 
   // Setup helpers.
 
-  protected setupColors() {
+  protected setupColors(): void {
     this.colorVars = namedColorVars.colors;
-    this.colors = {}; // Initialize.
+    this.colorsByHex = {};
+    this.colors = {};
 
     $.each(this.colorVars, (key: string, hex: string) => {
       this.colors[ key ] = this.colorProps(key, hex);
+      this.colorsByHex[ hex ] = this.colors[ key ];
     });
+    this.colorKeysByName = this.sortColorKeys(this.colors, 'name');
     this.colorKeysByHue = this.sortColorKeys(this.colors, 'hue');
-    this.colorKeyByName = this.sortColorKeys(this.colors, 'name');
 
     this.colorKeysByHue.forEach((key: string) => {
       let color = this.colors[ key ];
       let $anchor = $(this.colorAnchorMarkup(color));
-      $anchor.data('color', color);
 
+      $anchor.data('color', color);
       this.$grid.append($anchor);
+
       this.totalGridColors++;
     });
     this.$grid.prepend($(this.searchAnchorMarkup()));
     this.totalGridColors++; // One more color.
 
     this.colorOptions = [], // Initialize.
-      this.colorKeyByName.forEach((key: string) => {
+      this.colorKeysByName.forEach((key: string) => {
         let color = this.colors[ key ];
-        let $option = $(this.colorOptionMarkup(color));
-
+        let markup = this.colorOptionMarkup(color);
         this.colorOptions.push(<t.ColorOption>{
-          color: color,
-          $option: $option,
-          index: this.colorOptions.length,
-
-          id: color.slug, // Required by select2.
-          text: color.name, // Same here.
+          value: color.key,
+          text: color.name,
+          markup: markup,
         });
       });
   }
 
-  protected setupEvents() {
-    this.$window.on('resize.' + ns, this.onWindowResize.bind(this));
+  protected setupSearchSelect(): void {
+    this.$searchSelect.selectize(<any>{
+      options: this.colorOptions,
+      dropdownParent: this.$search,
+      placeholder: this.options.i18n.searchColors,
 
-    this.$grid.on('click.' + ns, '> .-color', this.onColorClick.bind(this));
+      render: {
+        item: (data: any) => {
+          return $('<div>' + data.markup + '</div>');
+        },
+        option: (data: any) => {
+          return $('<div>' + data.markup + '</div>');
+        },
+      },
+      diacritics: false,
+      closeAfterSelect: true,
+      maxOptions: Math.min(50, this.colorOptions.length),
+    });
+  }
 
-    this.$info.on('click.' + ns, '> .-hex, > .-rgb, > .-hsl, > .-hsv', this.onInfoCopyClick.bind(this));
-    this.$info.on('click.' + ns, '> .-select', this.onInfoSelectClick.bind(this));
+  protected setupEvents(): void {
+    this.$grid.on('click.' + this.ns, '> .-color', this.onColorClick.bind(this));
 
-    this.$searchOverlay.on('click.' + ns, this.onSearchOverlayClick.bind(this));
-    this.$searchSelect.on('select2:select.' + ns, this.onSearchSelect.bind(this));
+    this.$info.on('click.' + this.ns, '> .-hex, > .-rgb, > .-hsl, > .-hsv', this.onInfoCopyClick.bind(this));
+    this.$info.on('click.' + this.ns, '> .-select', this.onInfoSelectClick.bind(this));
+
+    this.$searchSelect[ 0 ].selectize.on('item_add', this.onSearchSelect.bind(this));
+    this.$searchOverlay.on('click.' + this.ns, this.onSearchOverlayClick.bind(this));
+
+    this.$window.on('resize.' + this.ns, this.onWindowResize.bind(this));
+    this.$document.on('keyup.' + this.ns, this.onDocumentKeyup.bind(this));
   }
 
   // Event handlers.
 
-  protected onWindowResize(e: JQueryEventObject) {
+  protected onColorClick(e: JQueryEventObject): void {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    let $anchor = $(e.currentTarget);
+    let color = $anchor.data('color');
+
+    if ($anchor.hasClass('-search')) {
+      this.toggleSearch();
+    } else if ($anchor.hasClass('-active')) {
+      this.closeActiveColor();
+    } else if (color) {
+      this.setActiveColor(color);
+    }
+  }
+
+  protected onInfoCopyClick(e: JQueryEventObject): void {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    this.copyText($.trim($(e.target).text()));
+  }
+
+  protected onInfoSelectClick(e: JQueryEventObject): void {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    this.selectActiveColor();
+  }
+
+  protected onSearchSelect(key: string): void {
+    this.setActiveColor(key);
+  }
+
+  protected onSearchOverlayClick(e: JQueryEventObject): void {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    this.closeSearch();
+  }
+
+  protected onWindowResize(e: JQueryEventObject): void {
     this.resizeGrid(); // Resize grid colors.
   }
 
-  protected onColorClick(e: JQueryEventObject) {
-    let $color = $(e.currentTarget);
+  protected onDocumentKeyup(e: JQueryEventObject): void {
+    if (e.keyCode !== 27) return;
 
-    if ($color.hasClass('-search')) {
-      return this.toggleSearch();
-    } else if ($color.hasClass('-active')) {
-      return this.closeActiveColor();
-    }
-    this.closeSearch();
-    this.closeActiveColor();
-
-    let color = $color.data('color');
-    $color.addClass('-active');
-
-    this.$info.html(this.infoMarkup(color)).show();
-
-    let infoCssData = this.infoCssData($color, color);
-    this.$info.css(infoCssData.css).attr('class', '-info ' + infoCssData.arrowClass);
-
-    if (infoCssData.arrowClass && infoCssData.arrowStyles) {
-      this.$head.append(this.infoArrowStylesMarkup(infoCssData.arrowClass, infoCssData.arrowStyles));
-    }
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    this.close();
   }
 
-  protected onInfoCopyClick(e: JQueryEventObject) {
-    let $this = $(e.target);
-    let text = $.trim($this.text());
-    let $copied = this.$info.find('> .-copied');
+  // Public open/close utilities.
 
-    this.$textarea.val(text).select();
-    document.execCommand('copy');
-    this.$textarea.val('').blur();
-
-    $copied.css('visibility', 'visible');
-    setTimeout(() => $copied.css('visibility', 'hidden'), 500);
-  }
-
-  protected onInfoSelectClick(e: JQueryEventObject) {
-    if (typeof this.onSelect === 'function') {
-      this.onSelect(this.getActiveColor(), this);
-    } else {
-      this.close(); // Close picker.
-    }
-  }
-
-  protected onSearchSelect(e: JQueryEventObject | any) {
-    this.setActiveColor(e.params.data.color.key);
-  }
-
-  protected onSearchOverlayClick(e: JQueryEventObject) {
-    this.closeSearch();
-  }
-
-  // Public API.
-
-  public open(options?: t.OpenOptionsArg) {
-    this.closeSearch();
-    this.closeActiveColor();
-    this.$picker.show();
-
+  public open(options?: t.OpenOptionsArg, hexKeyOrName?: t.Color | string): void {
     options = <t.OpenOptions>$.extend({}, {
+      onBeforeOpen: undefined,
+      onOpened: undefined,
+
+      onBeforeClose: undefined,
+      onClosed: undefined,
+
+      onColorActive: undefined,
+      onActiveColorClosed: undefined,
+      onColorSelected: undefined,
+
+      showCodes: true,
       openSearch: false,
-      setActiveColor: '',
-      onSelect: undefined,
     }, options || {});
 
-    this.resizeGrid();
-    this.onSelect = options.onSelect;
-    if (options.openSearch) this.openSearch();
-    if (options.setActiveColor) this.setActiveColor(options.setActiveColor);
+    this.onBeforeOpen = options.onBeforeOpen;
+    this.onOpened = options.onOpened;
+
+    this.onBeforeClose = options.onBeforeClose;
+    this.onClosed = options.onClosed;
+
+    this.onColorActive = options.onColorActive;
+    this.onActiveColorClosed = options.onActiveColorClosed;
+    this.onColorSelected = options.onColorSelected;
+
+    this.showCodes = <boolean | Array<string>>options.showCodes;
+
+    if (typeof this.onBeforeOpen === 'function') {
+      this.onBeforeOpen();
+    }
+    this.closeOthers();
+    this.closeSearch();
+    this.closeActiveColor();
+
+    if (!this.$picker.is(':visible')) {
+      this.windowScrollTop = <number>this.$window.scrollTop();
+    } // Remember `scrollTop()` before showing picker.
+
+    this.$picker.show(), this.resizeGrid();
+    this.$html.addClass(ss + '-open');
+
+    if (hexKeyOrName) {
+      this.setActiveColor(hexKeyOrName);
+    } else if (options.openSearch) {
+      this.openSearch();
+    }
+    if (typeof this.onOpened === 'function') {
+      this.onOpened();
+    }
   }
 
   public toggle(options?: t.OpenOptionsArg): boolean {
@@ -226,26 +311,205 @@ export class Instance {
     }
   }
 
-  public close() {
+  public close(restoreScrollTop: boolean = true): void {
+    if (typeof this.onBeforeClose === 'function') {
+      this.onBeforeClose();
+    }
     this.closeSearch();
     this.closeActiveColor();
-    this.$picker.hide();
 
+    this.$picker.hide();
     this.removeGridStyles();
-    this.onSelect = undefined;
+    this.$html.removeClass(ss + '-open');
+
+    if (restoreScrollTop) {// Restore?
+      this.$window.scrollTop(this.windowScrollTop);
+    }
+    if (typeof this.onClosed === 'function') {
+      this.onClosed();
+    }
+    this.onBeforeOpen = undefined;
+    this.onOpened = undefined;
+
+    this.onBeforeClose = undefined;
+    this.onClosed = undefined;
+
+    this.onColorActive = undefined;
+    this.onActiveColorClosed = undefined;
+    this.onColorSelected = undefined;
+
+    this.showCodes = true;
   }
 
-  public resizeGrid() {
+  // Public color utilities.
+
+  public getColors(): t.Colors {
+    return this.colors;
+  }
+
+  public getColorKeysByName(): string[] {
+    return this.colorKeysByName;
+  }
+
+  public getColorKeysByHue(): string[] {
+    return this.colorKeysByHue;
+  }
+
+  public getActiveColor(): t.Color | undefined {
+    let $color = this.$grid.find('> .-color.-active');
+    return $color.data('color') || undefined;
+  }
+
+  public setActiveColor(hexKeyOrName: t.Color | string): void {
     if (!this.$picker.is(':visible'))
       return; // Not possible.
 
-    let gridPadding = 1, colorMargin = 1;
+    let color = this.getColor(hexKeyOrName);
+    if (!color) return; // Not possible.
 
-    this.windowWidth = this.$window.width();
-    this.windowHeight = this.$window.height();
+    let $color = this.$grid.find('> .-color[href="#' + color.key + '"]');
+    if (!$color.length) return; // Not possible.
 
-    let gridInnerWidth = this.$grid.innerWidth();
-    let gridInnerHeight = this.$grid.innerHeight();
+    this.closeSearch();
+    this.closeActiveColor();
+    $color.addClass('-active');
+
+    this.$info.html(this.infoMarkup(color)).fadeIn(150);
+    let infoCssData = this.infoCssData($color, color);
+
+    this.$info.css(<any>infoCssData.css).attr('class', '-info ' + infoCssData.arrowClass);
+    this.$info.find('> .-select').css(<any>infoCssData.selectCss);
+
+    if (infoCssData.arrowClass && infoCssData.arrowStyles) {
+      this.$head.append(this.infoArrowStylesMarkup(infoCssData.arrowClass, infoCssData.arrowStyles));
+    }
+    if (typeof this.onColorActive === 'function') {
+      this.onColorActive(this.getActiveColor());
+    }
+  }
+
+  public selectActiveColor(): void {
+    if (typeof this.onColorSelected === 'function') {
+      this.onColorSelected(this.getActiveColor());
+    } this.close(); // Close picker.
+  }
+
+  public closeActiveColor(): void {
+    let $color = this.$grid.find('> .-color.-active');
+    if (!$color.length) return;
+
+    this.$info.hide();
+    this.$info.html('');
+    this.removeInfoStyles();
+    $color.removeClass('-active');
+
+    if (typeof this.onActiveColorClosed === 'function') {
+      this.onActiveColorClosed($color.data('color'));
+    }
+  }
+
+  // Public search utilities.
+
+  public openSearch(hexKeyOrName?: t.Color | string): void {
+    if (!this.$picker.is(':visible'))
+      return; // Not possible.
+
+    this.closeActiveColor();
+
+    this.$searchOverlay.show();
+    this.$search.show();
+
+    this.$searchSelect[ 0 ].selectize.clear();
+    this.$searchSelect[ 0 ].selectize.open();
+
+    if (hexKeyOrName) {
+      let color = this.getColor(hexKeyOrName);
+      if (color) (<any>this.$searchSelect[ 0 ].selectize).setTextboxValue(color.name);
+    }
+  }
+
+  public toggleSearch(): boolean {
+    if (this.$search.is(':visible')) {
+      this.closeSearch();
+      return false;
+    } else {
+      this.openSearch();
+      return true;
+    }
+  }
+
+  public closeSearch(): void {
+    this.$searchSelect[ 0 ].selectize.close();
+    this.$search.hide();
+    this.$searchOverlay.hide();
+  }
+
+  // Misc. public utilities.
+
+  public debounce(f: Function, delay: number): Function {
+    let timeout: any; // Timeout handle.
+
+    return function (this: any, ...args: Array<any>) {
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => f.apply(this, args), delay);
+    };
+  }
+
+  public getColor(hexKeyOrName: t.Color | string): t.Color | undefined {
+    if (typeof hexKeyOrName === 'object') {
+      return hexKeyOrName; // Color.
+
+    } else if (hexKeyOrName.indexOf('#') === 0) {
+      let hex = hexKeyOrName; // Hex code.
+
+      if (this.colorsByHex[ hex ]) {
+        return this.colorsByHex[ hex ];
+      }
+    } else { // Key or name.
+      let name = hexKeyOrName;
+      let key = this.colorNameToKey(name);
+
+      if (this.colors[ key ]) {
+        return this.colors[ key ];
+      }
+    }
+  }
+
+  public destroy(): void {
+    this.close(false);
+
+    this.removeInfoStyles();
+    this.removeGridStyles();
+
+    this.destroySearchSelect();
+    this.$window.off('resize.' + this.ns);
+    this.$picker.remove();
+
+    instances.splice(this.instance - 1, 1);
+  }
+
+  // Other misc. utilities.
+
+  protected closeOthers(): void {
+    instances.forEach((instance, i) => {
+      if (i !== this.instance - 1) instance.close(false);
+    });
+  }
+
+  protected resizeGrid(): void {
+    if (!this.$picker.is(':visible'))
+      return; // Not possible.
+
+    this.windowWidth = <number>this.$window.width();
+    this.windowHeight = <number>this.$window.height();
+
+    let gridPadding = 3, colorMargin = 3;
+
+    if (this.windowWidth < 768) {
+      gridPadding = 1, colorMargin = 1;
+    }
+    let gridInnerWidth = <number>this.$grid.innerWidth();
+    let gridInnerHeight = <number>this.$grid.innerHeight();
 
     let gridWidth = gridInnerWidth - (gridPadding * 2);
     let gridHeight = gridInnerHeight - (gridPadding * 2);
@@ -257,82 +521,50 @@ export class Instance {
     this.$head.append(this.gridStylesMarkup(gridPadding, colorMargin, colorSize));
   }
 
-  public setActiveColor(x: t.Color | string) {
-    if (!this.$picker.is(':visible'))
-      return; // Not possible.
+  protected copyText(text: string): void {
+    let $copied = this.$info.find('> .-copied');
+    this.$textarea.val(text).select();
 
-    let key = typeof x === 'object' && x.key ? x.key : String(x);
-    this.$grid.find('> .-color[href="#' + key + '"]').click();
-  }
-
-  public getActiveColor(): t.Color | null | undefined {
-    if (!this.$picker.is(':visible'))
-      return; // Not possible.
-
-    let $color = this.$grid.find('> .-color.-active');
-    return $color.data('color') || undefined;
-  }
-
-  public closeActiveColor() {
-    this.$info.hide().html(''), this.removeInfoStyles();
-    this.$grid.find('> .-color.-active').removeClass('-active');
-  }
-
-  public openSearch() {
-    if (!this.$picker.is(':visible'))
-      return; // Not possible.
-
-    this.closeActiveColor();
-
-    this.$searchOverlay.show();
-    this.$search.show();
-
-    this.maybeInitSearchSelect2();
-    this.$searchSelect.val('').trigger('change');
-    this.$searchSelect.select2('open');
-  }
-
-  public toggleSearch() {
-    if (this.$search.is(':visible')) {
-      this.closeSearch();
-      return false;
-    } else {
-      this.openSearch();
-      return true;
+    try { // Catch exceptions.
+      if (!win.document.queryCommandSupported('copy')) {
+        this.promptCopy(text);
+      } else if (!win.document.queryCommandEnabled('copy')) {
+        this.promptCopy(text);
+      } else if (!win.document.execCommand('copy', false, null)) {
+        this.promptCopy(text);
+      } else { // Success in this case.
+        $copied.css('visibility', 'visible');
+        setTimeout(() => $copied.css('visibility', 'hidden'), 500);
+      }
+    } catch (exception) {
+      this.promptCopy(text);
     }
+    this.$textarea.val('').blur();
   }
 
-  public closeSearch() {
-    this.$search.hide();
-    this.$searchOverlay.hide();
+  protected promptCopy(text: string): void {
+    win.prompt(this.options.i18n.promptCopyFallback, text);
   }
 
-  public destroy() {
-    this.close();
-    this.removeInfoStyles();
-    this.removeGridStyles();
-    this.maybeDestroySearchSelect2();
-    this.$window.off('resize' + ns);
-    this.$picker.remove();
+  protected colorKeyToSlug(key: string): string {
+    return key.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
   }
 
-  // Utilities.
-
-  protected removeGridStyles() {
-    this.$head.find('.named-color-picker-grid-styles-' + this.instance).remove();
+  protected colorKeyToName(key: string): string {
+    return key.replace(/[A-Z]/g, (m) => ' ' + m).replace(/^./, (m) => m.toUpperCase());
   }
 
-  protected removeInfoStyles() {
-    this.$head.find('.named-color-picker-info-styles-' + this.instance).remove();
+  protected colorNameToKey(name: string): string {
+    return name.replace(/\s+([a-z])/gi, (m, $1) => $1.toUpperCase()).replace(/^./, (m) => m.toLowerCase());
   }
 
   protected colorProps(key: string, hex: string): t.Color {
     let tinyColor = tinycolor(hex);
 
     return <t.Color>{
-      key: key, // camelCase property key.
-      slug: key.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase()),
-      name: key.replace(/[A-Z]/g, (m) => ' ' + m).replace(/^./, (m) => m.toUpperCase()),
+      key: key, // camelCase.
+      slug: this.colorKeyToSlug(key),
+      name: this.colorKeyToName(key),
 
       hex: tinyColor.toHex(),
       rgb: tinyColor.toRgb(),
@@ -346,6 +578,8 @@ export class Instance {
 
       isDark: tinyColor.isDark(),
       isLight: tinyColor.isLight(),
+
+      tiny: tinyColor,
     };
   }
 
@@ -388,38 +622,24 @@ export class Instance {
     return Math.max(sx, sy);
   }
 
-  protected maybeInitSearchSelect2() {
-    if (this.$searchSelect.data('initialized'))
-      return; // Did this already.
-
-    this.$searchSelect.select2({
-      allowClear: true,
-      data: this.colorOptions,
-      dropdownParent: this.$search,
-      placeholder: this.options.i18n.searchColors,
-
-      templateResult: (data: any) => {
-        if (data && typeof data.index === 'number')
-          return this.colorOptions[ data.index ].$option;
-        return data && data.text ? data.text : '';
-      },
-    }).data('initialized', true);
+  protected destroySearchSelect(): void {
+    this.$searchSelect[ 0 ].selectize.destroy();
   }
 
-  protected maybeDestroySearchSelect2() {
-    if (this.$searchSelect.data('initialized'))
-      return; // Nothing to destroy.
-
-    this.$searchSelect.select2('destroy');
-    this.$searchSelect.removeData('initialized');
+  protected removeGridStyles(): void {
+    this.$head.find('.' + this.ss + '-grid-styles').remove();
   }
 
-  // Markup utils.
+  protected removeInfoStyles(): void {
+    this.$head.find('.' + this.ss + '-info-styles').remove();
+  }
+
+  // Markup utilities.
 
   protected pickerMarkup(): string {
     let markup = ''; // Initialize.
 
-    markup += '<div class="named-color-picker named-color-picker-' + this.instance + '">';
+    markup += '<div class="' + ss + ' ' + this.ss + '">';
     markup += '  <div class="-grid"></div>';
     markup += '  <div class="-info"></div>';
     markup += '  <div class="-search-overlay"></div>';
@@ -433,9 +653,9 @@ export class Instance {
   protected gridStylesMarkup(gridPadding: number, colorMargin: number, colorSize: number): string {
     let markup = ''; // Initialize.
 
-    markup += '<style class="named-color-picker-grid-styles-' + this.instance + '">';
-    markup += '.named-color-picker-' + this.instance + ' > .-grid { padding: ' + gridPadding + 'px; }';
-    markup += '.named-color-picker-' + this.instance + ' > .-grid > .-color {';
+    markup += '<style class="' + this.ss + '-grid-styles">';
+    markup += '.' + this.ss + ' > .-grid { padding: ' + gridPadding + 'px; }';
+    markup += '.' + this.ss + ' > .-grid > .-color {';
     markup += '  margin:' + colorMargin + 'px; width:' + colorSize + 'px; height:' + colorSize + 'px;';
     markup += '}';
     markup += '</style>';
@@ -444,7 +664,7 @@ export class Instance {
   }
 
   protected colorAnchorMarkup(color: t.Color): string {
-    return '<a class="-color" style="background-color:' + color.hexString + ';" href="#' + color.key + '"></a>';
+    return '<a class="-color" style="background-color:' + color.hexString + ';" title="' + color.name + '" href="#' + color.key + '"></a>';
   }
 
   protected searchAnchorMarkup(): string {
@@ -456,26 +676,36 @@ export class Instance {
   }
 
   protected infoMarkup(color: t.Color): string {
-    let markup = ''; // Initialize.
+    let sc = this.showCodes;
 
+    let markup = ''; // Initialize markup.
     markup += '<div class="-title">' + color.name + '</div>';
-    markup += '<a class="-hex" href="#">' + color.hexString + '</a>';
-    markup += '<a class="-rgb" href="#">' + color.rgbString + '</a>';
-    markup += '<a class="-hsl" href="#">' + color.hslString + '</a>';
-    markup += '<a class="-hsv" href="#">' + color.hsvString + '</a>';
-    markup += '<div class="-copied">' + this.options.i18n.copied + '</div>';
 
-    if (this.onSelect !== null) {
-      markup += '<button type="button" class="-select">' + this.options.i18n.select + '</button>';
+    if (sc === true || (sc instanceof Array && sc.indexOf('hex') !== -1)) {
+      markup += '<a class="-hex" href="#">' + color.hexString + '</a>';
     }
+    if (sc === true || (sc instanceof Array && sc.indexOf('rgb') !== -1)) {
+      markup += '<a class="-rgb" href="#">' + color.rgbString + '</a>';
+    }
+    if (sc === true || (sc instanceof Array && sc.indexOf('hsl') !== -1)) {
+      markup += '<a class="-hsl" href="#">' + color.hslString + '</a>';
+    }
+    if (sc === true || (sc instanceof Array && sc.indexOf('hsv') !== -1)) {
+      markup += '<a class="-hsv" href="#">' + color.hsvString + '</a>';
+    }
+    if (sc === true || (sc instanceof Array && sc.length > 0)) {
+      markup += '<div class="-copied">' + this.options.i18n.copied + '</div>';
+    }
+    markup += '<a class="-select" href="#">' + this.options.i18n.select + '</a>';
+
     return markup;
   }
 
   protected infoArrowStylesMarkup(arrowClass: string, styles?: string): string {
     let markup = ''; // Initialize.
 
-    markup += '<style class="named-color-picker-info-styles-' + this.instance + '">';
-    markup += '.named-color-picker' + this.instance + ' > .-info.' + arrowClass.replace(/\s/g, '.') + '::after {';
+    markup += '<style class="' + this.ss + '-info-styles">';
+    markup += '.' + this.ss + ' > .-info.' + arrowClass.replace(/\s/g, '.') + '::after {';
     markup += '  ' + styles;
     markup += '}';
     markup += '</style>';
@@ -483,18 +713,19 @@ export class Instance {
     return markup;
   }
 
-  // CSS data utils.
+  // CSS data utilities.
 
   protected infoCssData($color: JQuery, color: t.Color): t.InfoCssData {
     let css: t.InfoCss = {
-      top: 'auto',
-      right: 'auto',
-      bottom: 'auto',
-      left: 'auto',
-      backgroundColor: color.hexString,
-      color: color.isDark ? '#fff' : '#000',
-    }; // Initialize.
-
+      top: 'auto', right: 'auto', bottom: 'auto', left: 'auto',
+      color: color.isDark ? this.lightTiny.toHexString() : this.darkTiny.toHexString(),
+      backgroundImage: 'linear-gradient(to bottom, ' + color.hexString + ', ' + color.tiny.clone().darken(10).toHexString() + ')',
+    };
+    let selectCss: t.InfoSelectCss = {
+      borderColor: color.tiny.clone().darken(15).toHexString(),
+      color: color.isDark ? this.lightTiny.toHexString() : this.darkTiny.toHexString(),
+      backgroundImage: 'linear-gradient(to bottom, ' + color.hexString + ', ' + color.tiny.clone().darken(5).toHexString() + ')',
+    };
     let spacing = .75 * this.emPixels;
     let arrowClass = '', arrowStyles = '';
     let rect = this.$info[ 0 ].getBoundingClientRect();
@@ -549,7 +780,8 @@ export class Instance {
       css.left = Math.max(0, Number(css.left)) + 'px';
     }
     let data: t.InfoCssData = {
-      css: css, // Props.
+      css: css,
+      selectCss: selectCss,
       arrowClass: arrowClass,
       arrowStyles: arrowStyles,
     };

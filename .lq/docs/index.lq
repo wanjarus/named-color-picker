@@ -1,0 +1,528 @@
+{% include 'header' %}
+
+<content-body class="#center #w:readable #m:v2">
+  <h1 class="#m:b2">
+    {{ pkg.title | escHtml }} <span class="#push:r">{{ strs.npmInstallShield }}</span>
+    <sub class="#f:.55">{{ pkg.description | escHtml }}</sub>
+  </h1>
+
+  <hr />
+
+  <h2>Color Picker Installation</h2>
+
+  <a-brick>
+    <h3>Styles/Scripts via CDN</h3>
+    {% markdown %}
+      ```html
+      {{ strs.unpkgCdnTags }}
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <h2>Color Picker Demos</h2>
+
+  <a-brick>
+    <h3>Color Input</h3>
+    Choose Color: <input id="one" name="one" type="color" />
+
+    {% markdown %}
+      ```html
+      <input type="color" />
+
+      <script>
+        $('input[type="color"]').namedColorPicker();
+      </script>
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <a-brick>
+    <h3>Initial Color Value</h3>
+    Change Color: <input id="two" name="two" type="color" value="#2a7e19" />
+
+    {% markdown %}
+      ```html
+      <input type="color" value="#2a7e19" />
+
+      <script>
+        $('input[type="color"]').namedColorPicker();
+      </script>
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <a-brick>
+    <h3>With Search Open</h3>
+    Search Colors: <input id="three" name="three" type="color" /><br />
+    <small><em>Begins with a search box when there's no existing color.</em></small>
+
+    {% markdown %}
+      ```html
+      <input type="color" />
+
+      <script>
+        $('input[type="color"]').namedColorPicker({ openSearch: true });
+      </script>
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <a-brick>
+    <h3>Hidden Color Codes</h3>
+    Change Color: <input id="four" name="four" type="color" value="#714ab2" /><br />
+    <small><em>Clicking on a color shows the title only.</em></small>
+
+    {% markdown %}
+      ```html
+      <input type="text" value="#714ab2" />
+
+      <script>
+        $('input[type="color"]').namedColorPicker({ showCodes: false });
+      </script>
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <a-brick>
+    <h3>Text Input</h3>
+    Enter Color Name (or Hex Code): <input id="five" name="five" type="text" value="#647d8e" class="b#gray #radius" /><br />
+    <small><em>Note: A hidden input field holds the hex color code.</em></small>
+
+    {% markdown %}
+      ```html
+      <input type="text" value="#647d8e" />
+
+      <script>
+        $('input[type="text"]').namedColorPicker();
+      </script>
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <a-brick>
+    <h3>Colorize Swatch Only (Not Text Field)</h3>
+    Enter Color Name (or Hex Code): <input id="six" name="six" type="text" value="#b9cc81" class="#radius" /><br />
+    <small><em>Note: A hidden input field holds the hex color code.</em></small>
+
+    {% markdown %}
+      ```html
+      <input type="text" value="#b9cc81" />
+
+      <script>
+        $('input[type="text"]').namedColorPicker({ colorizeElement: false });
+      </script>
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <a-brick>
+    <h3>Open Via JavaScript</h3>
+    Change Color: <input id="seven" name="seven" type="color" value="#658cbb" />
+    <small><em><a id="seven-open" href="#">click here to open</a></em></small>
+
+    {% markdown %}
+      ```html
+      <input type="color" value="#658cbb" />
+      <a class="open" href="#">click here to open</a>
+
+      <script>
+        var $color = $('input[type="color"]');
+        $color.namedColorPicker(); // Initialize.
+
+        $('.open').on('click', function(e) {
+          e.preventDefault(); // Prevent default click behavior.
+          $color.namedColorPicker('open', '#658cbb'); // Open command.
+        });
+      </script>
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <a-brick>
+    <h3>Stand-Alone Mode</h3>
+    Inherits 100% width of a container element.
+
+    <div style="width:300px; max-width:100%;">
+      <input id="eight" name="eight" type="color" value="#7c7631" />
+    </div>
+
+    {% markdown %}
+      ```html
+      <div style="width:300px; max-width:100%;">
+        <input type="color" value="#7c7631" />
+      </div>
+      <script>
+        $('input[type="color"]').namedColorPicker({ mode: 'stand-alone' });
+      </script>
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+  <hr />
+
+  <h2>Documentation</h2>
+
+  <a-brick>
+    {% markdown %}
+      ### Configuration Options
+
+      ```html
+      <script>
+        $('input[type="color"]')
+          .namedColorPicker({
+            mode: 'auto',
+
+            titleizeElement: true,
+            colorizeElement: true,
+
+            showCodes: true,
+            openSearch: false,
+
+            i18n: {
+              copied: 'copied',
+              select: 'Select',
+              searchColors: 'search',
+              promptCopyFallback: 'press ctrl+c to copy:',
+            },
+        });
+      </script>
+      ```
+
+      `mode` (default: `auto`)
+
+        : Can be `swatch-before`, `swatch-after`, `swatch-only`, `stand-alone`, or `auto`.
+
+          `swatch-before`
+            : Swatch appears before the form element.
+
+          `swatch-after`
+            : Swatch appears after the form element.
+
+          `swatch-only`
+            : Swatch replaces form element.
+
+          `stand-alone`
+            : Inherits 100% width of containing element.
+
+          `auto` (automatic mode)
+            : If `<input type="color">` use `swatch-only`, else `swatch-after`.
+
+      `titlelizeElement` (default: `true`)
+
+        : Can be `true` or `false`. If `true`, automatically set the element's `title=""` attribute to a description of the selected color.
+
+      `colorizeElement` (default: `true`)
+
+        : Can be `true` or `false`. If `true`, automatically set the element's color and background properties to the selected color.
+
+      `showCodes` (default: `true`)
+
+        : Can be `true` or `false` to show hex, rgb, hsl, and hsv color codes. Or, this can be set to an array of color codes to show; e.g., `['hex', 'rgb', 'hsl', 'hsv']` shows all color codes. The default `true` value also shows all color codes.
+
+      `openSearch` (default: `false`)
+
+        : Can be `true` or `false` to automatically open the search box.
+
+      `i18n` (i)nternationalizatio(n)
+
+        : See example above. You can fill-in the strings if you need to translate. However, altering the name of each named color is not a feature at this time.
+
+      ---
+
+      ### jQuery Initialization
+
+      ```js
+      var $input = $('<input type="color">');
+      $input.namedColorPicker({ /* Any options here. */ });
+      ```
+
+      ---
+
+      ### Basic jQuery Commands
+
+      **`open()`** the color picker.
+
+      ```js
+      var $input = $('<input type="color">');
+      $input.namedColorPicker(); // Initialize.
+
+      // Open color picker.
+      $input.namedColorPicker('open');
+
+      // Or, you can open with a color already active.
+      $input.namedColorPicker('open', 'newAmber'); // By key (caSe sensitive).
+      $input.namedColorPicker('open', 'New Amber'); // By name (not caSe senstive).
+      $input.namedColorPicker('open', '#7b3801'); // By hex string (not caSe senstive).
+      ```
+
+      **`toggle()`** the color picker open/closed.
+
+      ```js
+      $input.namedColorPicker('toggle');
+      ```
+
+      **`close()`** the color picker.
+
+      ```js
+      $input.namedColorPicker('close');
+      ```
+
+      **`destroy()`** closes & destroys the color picker instance.
+
+      ```js
+      $input.namedColorPicker('destroy');
+      ```
+
+      ---
+
+      ### jQuery Color Commands
+
+      **`getColors()`** gets all named colors.
+
+      ```js
+      var $input = $('<input type="color">');
+      $input.namedColorPicker(); // Initialize.
+
+      $input.namedColorPicker('getColors').forEach(function(color) {
+        console.log(color.key); // newAmber
+        console.log(color.name); // New Amber
+        console.log(color.hexString); // #7b3801
+        console.log(color.rgbString); // rgb(123, 56, 1)
+        console.log(color.hslString); // hsl(27, 98%, 24%)
+        console.log(color.hsvString); // hsv(27, 99%, 48%)
+        console.log(color.tiny); // tinyColor object instance.
+        console.log(color); // If you want to inspect all properties.
+      });
+      ```
+
+      **`getColorKeysByName()`** gets all named color keys, in alphabetical order.
+
+      ```js
+      $input.namedColorPicker('getColorKeysByName').forEach(function(key) {
+        console.log(key); // acidGreen
+      });
+      ```
+
+      **`getColorKeysByHue()`** gets all named color keys, ordered by hue.
+
+      ```js
+      $input.namedColorPicker('getColorKeysByHue').forEach(function(key) {
+        console.log(key); // persianPlum
+      });
+      ```
+
+      **`getColor()`** gets a color by hex string, key, or by name.
+
+      ```js
+      // By key (caSe sensitive).
+      var color = $input.namedColorPicker('getColor', 'newAmber');
+
+      // By name (not caSe senstive).
+      var color = $input.namedColorPicker('getColor', 'New Amber');
+
+      // By hex string (not caSe senstive).
+      var color = $input.namedColorPicker('getColor', '#7b3801');
+
+      if (color) {
+        console.log(color.key); // newAmber
+        console.log(color.name); // New Amber
+        console.log(color.hexString); // #7b3801
+        console.log(color.rgbString); // rgb(123, 56, 1)
+        console.log(color.hslString); // hsl(27, 98%, 24%)
+        console.log(color.hsvString); // hsv(27, 99%, 48%)
+        console.log(color.tiny); // tinyColor object instance.
+        console.log(color); // If you want to inspect all properties.
+      }
+      ```
+
+      **`getActiveColor()`** gets the currently active color; i.e., the color that is currently active in the picker, open for consideration, but has not yet been selected by the user.
+
+      ```js
+      var color = $input.namedColorPicker('getActiveColor');
+
+      if (color) {
+        console.log(color.key); // newAmber
+        console.log(color.name); // New Amber
+        console.log(color.hexString); // #7b3801
+        console.log(color.rgbString); // rgb(123, 56, 1)
+        console.log(color.hslString); // hsl(27, 98%, 24%)
+        console.log(color.hsvString); // hsv(27, 99%, 48%)
+        console.log(color.tiny); // tinyColor object instance.
+        console.log(color); // If you want to inspect all properties.
+      }
+      ```
+
+      **`setActiveColor()`** sets the currently active color; i.e., the color that is currently active in the picker, but has not yet been selected by the user.
+
+      ```js
+      // Note: You can set a color by key, name, or by it's hex string.
+      // When setting the 'active' color, it must be a valid 'named' color.
+      $input.namedColorPicker('setActiveColor', 'newAmber'); // By key (caSe sensitive).
+      $input.namedColorPicker('setActiveColor', 'New Amber'); // By name (not caSe senstive).
+      $input.namedColorPicker('setActiveColor', '#7b3801'); // By hex string (not caSe senstive).
+      ```
+
+      **`getSelectedColor()`** gets the currently selected color (as a hex string). This is the color that was last selected from the picker by a user. Or, that was typed into a text form field. So this could be any arbitrary hex string; i.e., not necessarily a named color. For example, if you allow a text field to be edited by a user.
+
+      ```js
+      var hexString = $input.namedColorPicker('getSelectedColor');
+      if (hexString) console.log(hexString); // #7b3801
+      ```
+
+      **`setSelectedColor()`** sets the currently selected color; i.e., the color chosen by a user. This can be set to any valid color key, name, or any valid hex string. It doesn't necessarily need to be a 'named' color.
+
+      ```js
+      // Note: You can set a color by key, name, or by it's hex string.
+      // You can also set this to any valid hex string. It doesn't have to be a 'named' color.
+      $input.namedColorPicker('setSelectedColor', 'newAmber'); // By key (caSe sensitive).
+      $input.namedColorPicker('setSelectedColor', 'New Amber'); // By name (not caSe senstive).
+      $input.namedColorPicker('setSelectedColor', '#7b3801'); // By hex string (not caSe senstive).
+      ```
+
+      ---
+
+      ### jQuery Events
+
+      **`on('namedColorPicker.beforeOpen')`** fires right before the color picker opens.
+
+      ```js
+      var $input = $('<input type="color">');
+      $input.namedColorPicker(); // Initialize.
+
+      $input.on('namedColorPicker.beforeOpen', function(e) {
+        console.log('Color picker is about to open.');
+      });
+      ```
+
+      **`on('namedColorPicker.opened')`** fires when the color picker has been opened.
+
+      ```js
+      $input.on('namedColorPicker.opened', function(e) {
+        console.log('Color picker opened.');
+      });
+      ```
+
+      **`on('namedColorPicker.beforeClose')`** fires right before the color picker closes.
+
+      ```js
+      $input.on('namedColorPicker.beforeClose', function(e) {
+        console.log('Color picker is about to close.');
+      });
+      ```
+
+      **`on('namedColorPicker.closed')`** fires when the color picker has been closed.
+
+      ```js
+      $input.on('namedColorPicker.closed', function(e) {
+        console.log('Color picker closed.');
+      });
+      ```
+
+      **`on('namedColorPicker.colorActive')`** fires when a new color becomes active in the picker. An active color is one that is not selected by a user, but merely open for consideration so that details can be reviewed.
+
+      ```js
+      $input.on('namedColorPicker.colorActive', function(e, color) {
+        console.log('A new color is active in the color picker.');
+        console.log(color.hexString); // #7b3801
+      });
+      ```
+
+      **`on('namedColorPicker.activeColorClosed')`** fires when the active color becomes inactive; i.e., when toggling the active color closed in the color picker.
+
+      ```js
+      $input.on('namedColorPicker.activeColorClosed', function(e, color) {
+        console.log('A color is no longer active in the color picker.');
+        console.log(color.hexString); // #7b3801
+      });
+      ```
+
+      **`on('namedColorPicker.colorSelected')`** fires when a new color is selected; i.e., anytime the currently selected color changes. Note that when a color is selected, it becomes the value that's submitted by a form. The selected color may or may not be a 'named' color. For example, if you allow a user to enter any arbitrary value into a text field, it's possible to enter any valid color, whether it be a 'named' color or not.
+
+      ```js
+      $input.on('namedColorPicker.colorSelected', function(e, hexString, color) {
+        console.log('Color has been selected from the picker.');
+        console.log(hexString); // #7b3801
+
+        if (color) // If the selected color is a 'named' color.
+          console.log('The selected color is a named color: %o', color);
+      });
+      ```
+
+      ---
+
+      ### Underlying Class Instance
+
+      ```js
+      var $input = $('<input type="color">');
+      $input.namedColorPicker(); // Initialize.
+
+      // Named color picker instance.
+      var namedColorPicker = $input.data('namedColorPicker');
+
+      // jQuery commands documented above can also
+      // be called on the class instance if you like.
+      namedColorPicker.setSelectedColor('#7b3801');
+      ```
+
+      ---
+
+      ### Form Submission Data
+
+      In all cases, the `name=""` attribute of the original input element is moved to a hidden input created by the color picker. So a color is always submitted via the hidden input. The original element still handles user interaction and JavaScript events, but the form is submitted with a hidden input containing a hex string for the selected color.
+
+      When a form is submitted, it's submitted with a full, valid, 7-character hex string that includes a `#` prefix; e.g., `#000000`. Or, if no valid color has been selected by a user, the form is submitted with an empty string. Invalid colors entered by a user, such as those that don't pass internal color validation, are submitted as an empty string.
+
+      Any valid color can be submitted if you allow text field entry. Therefore, a color is valid if it's a valid hex string, period. It doesn't necessarily need to be a 'named' color.
+
+      ### Establishing Initial Color Value
+
+      This is as simple as setting the `value=""` attribute in your markup. The color picker will read this attribute and handle the rest for you automatically; i.e., making sure the initial color picker swatch matches the starting color value in your HTML markup.
+
+      ```html
+      <input type="color" value="#000000">
+      ```
+    {% endmarkdown %}
+  </a-brick>
+
+</content-body>
+
+{% capture docScripts %}
+  <script>
+    $(document).ready(function($) {
+      $('#one, #two, #five, #seven').namedColorPicker();
+      $('#three').namedColorPicker({ openSearch: true });
+      $('#four').namedColorPicker({ showCodes: false });
+      $('#six').namedColorPicker({ colorizeElement: false });
+      $('#eight').namedColorPicker({ mode: 'stand-alone' });
+
+      $('#seven-open').on('click', function(e) {
+        e.preventDefault(); // Prevent default.
+        $('#seven').namedColorPicker('open', '#658cbb');
+      });
+      $('#one, #two, #three, #four, #five, #six, #seven, #eight')
+        .on('namedColorPicker.beforeOpen', function(e) {
+          console.log('Color picker is about to open: %o', e);
+        })
+        .on('namedColorPicker.opened', function(e) {
+          console.log('Color picker has been opened: %o', e);
+        })
+        .on('namedColorPicker.beforeClose', function(e) {
+          console.log('Color picker is about to close: %o', e);
+        })
+        .on('namedColorPicker.closed', function(e) {
+          console.log('Color picker has been closed: %o', e);
+        })
+        .on('namedColorPicker.colorActive', function(e, color) {
+          console.log('A new color is active in the color picker: %o %o', e, color);
+        })
+        .on('namedColorPicker.activeColorClosed', function(e, color) {
+          console.log('The active color has been closed in the color picker: %o %o', e, color);
+        })
+        .on('namedColorPicker.colorSelected', function(e, hexString, color) {
+          console.log('A new color has been selected from the color picker: %o %s %o', e, hexString, color);
+        });
+    });
+  </script>
+{% endcapture %}
+
+{% include 'footer' %}
