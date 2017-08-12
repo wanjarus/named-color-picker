@@ -110,7 +110,7 @@ html.named-color-picker-open {
       //
       font-size:             .85em;
       text-decoration:        none;
-      font-family:            monospace;
+      font-family:            'operator mono', monospace;
 
       //
       opacity:                0.5;
@@ -160,6 +160,7 @@ html.named-color-picker-open {
 
       //
       opacity:               .9;
+      text-decoration:        none;
       text-transform:         uppercase;
 
       &:hover {
@@ -346,6 +347,7 @@ html.named-color-picker-open {
   height:                     1.75em;
 
   //
+  text-decoration:            none;
   outline:                    none;
   -webkit-tap-highlight-color: none;
 
