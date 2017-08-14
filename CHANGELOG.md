@@ -1,3 +1,13 @@
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/src-works/named-color-picker/compare/0.0.5...0.0.6) (2017-08-14)
+
+
+### Features
+
+* Enhancing docs. ([8cf59bc](https://github.com/src-works/named-color-picker/commit/8cf59bc))
+
+
+
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/src-works/named-color-picker/compare/0.0.4...0.0.5) (2017-08-12)
 
