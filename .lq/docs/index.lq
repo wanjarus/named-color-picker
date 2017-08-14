@@ -2,7 +2,7 @@
 
 <content-body class="#center #w:readable #m:v2">
   <h1 class="#m:b2">
-    {{ pkg.title | escHtml }} <span class="#push:r">{{ strs.npmInstallShield }}</span>
+    {{ pkg.title | escHtml }}™ <span class="#push:r">{{ strs.npmInstallShield }}</span>
     <sub class="#f:.55">{{ pkg.description | escHtml }}</sub>
   </h1>
 
