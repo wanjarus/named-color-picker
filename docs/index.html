@@ -3,7 +3,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <title>Docs | Named Color Picker</title>
+
+    <title>About | Named Color Picker</title>
+    <meta name="description" content="jQuery color picker w/ 2,065 colors, mobile-friendly." />
     <meta name="robots" content="index, follow" />
 
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
@@ -13,7 +15,7 @@
       <link href="https://unpkg.com/selectize@0.12.4/dist/css/selectize.default.css" rel="stylesheet" integrity="sha384-y/lK0mgNA2CldgvjfZFQ7ciSAhXLpIgkl4W/wifJ0EobNX5ac1buhp9X11g7GR2M" crossorigin="anonymous" />
     
 
-    <link rel="stylesheet" href="https://src.works/wp-content/themes/src-works/src/client-s/css/offsite/index.min.css" />
+    <link rel="stylesheet" href="https://src.works/wp-content/themes/src-works/src/client-s/css/offsite/~v0.0.1/index.min.css" />
 
     
   </head>
@@ -23,23 +25,34 @@
       <a-foundation>
         <a-slab>
           <a-structure>
+
+            <header class="#m:t2 #m:b3 #p:b2 b#blue #b:b5 !#radius">
+              <a-container>
+                <a-flex class="c~stack:if-lte-notebook #vai:middle">
+                  <div class="~12">
+                    <h1>
+                      Named Color Picker
+                      <sub>jQuery color picker w/ 2,065 colors, mobile-friendly.</sub>
+                    </h1>
+                  </div>
+                  <div class="~4 #a:center">
+                    <a href="https://www.npmjs.com/package/named-color-picker"><img class="#h:2 #o:.75:!on-hover #m:r1" src="https://src.works/wp-content/uploads/2017/05/npm.svg" alt="NPM Package" title="NPM Package" /></a>
+                    <a href="https://github.com/src-works/named-color-picker"><img class="#h:2 #o:.75:!on-hover #m:b.25" src="https://src.works/wp-content/uploads/2017/05/github.svg" alt="GitHub Repo" title="GitHub Repo" /></a>
+                  </div>
+                </a-flex>
+              </a-container>
+            </header>
+
             <structure-body>
               <a-container>
+                <content-body class="#center #w:readable">
 
 
-<content-body class="#center #w:readable #m:v2">
-  <h1 class="#m:b2">
-    Named Color Picker™ <span class="#push:r"><a href="https://www.npmjs.com/package/named-color-picker"><img src="https://nodei.co/npm/named-color-picker.png?mini=true" alt="npm install" height="24" valign="middle" style="height:24px; vertical-align:middle;" /></a></span>
-    <sub class="#f:.55">jQuery color picker w/ 2,065 named colors, mobile-friendly.</sub>
-  </h1>
+<h2>Color Picker Installation</h2>
 
-  <hr />
-
-  <h2>Color Picker Installation</h2>
-
-  <a-brick>
-    <h3>Styles/Scripts via CDN</h3>
-    <pre class="hljs-pre code"><code class="lang-html">&lt;!-- Style dependencies. --&gt;
+<a-brick>
+  <h3>Styles/Scripts via CDN</h3>
+  <pre class="hljs-pre code"><code class="lang-html">&lt;!-- Style dependencies. --&gt;
 &lt;link href=&quot;https://unpkg.com/selectize@0.12.4/dist/css/selectize.default.css&quot; rel=&quot;stylesheet&quot; integrity=&quot;sha384-y/lK0mgNA2CldgvjfZFQ7ciSAhXLpIgkl4W/wifJ0EobNX5ac1buhp9X11g7GR2M&quot; crossorigin=&quot;anonymous&quot; /&gt;
 
 &lt;!-- Script dependencies. --&gt;
@@ -50,92 +63,92 @@
 &lt;!-- The package itself. --&gt;
 &lt;script src=&quot;https://unpkg.com/named-color-picker@0.0.6&quot; integrity=&quot;sha384-unpWJoYFP4QLAXO5nJnknHFG5u+tmgn9YT1D9rbOpEO+R+7E1LmhbvuA9rwcqIjX&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
 </code></pre>
-  </a-brick>
+</a-brick>
 
-  <h2>Color Picker Demos</h2>
+<h2>Color Picker Demos</h2>
 
-  <a-brick>
-    <h3>Color Input</h3>
-    Choose Color: <input id="one" name="one" type="color" />
+<a-brick>
+  <h3>Color Input</h3>
+  Choose Color: <input id="one" name="one" type="color" />
 
-    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; /&gt;
-
-&lt;script&gt;
-  $(&#39;input[type=&quot;color&quot;]&#39;).namedColorPicker();
-&lt;/script&gt;
-</code></pre>
-  </a-brick>
-
-  <a-brick>
-    <h3>Initial Color Value</h3>
-    Change Color: <input id="two" name="two" type="color" value="#2a7e19" />
-
-    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; value=&quot;#2a7e19&quot; /&gt;
+  <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; /&gt;
 
 &lt;script&gt;
   $(&#39;input[type=&quot;color&quot;]&#39;).namedColorPicker();
 &lt;/script&gt;
 </code></pre>
-  </a-brick>
+</a-brick>
 
-  <a-brick>
-    <h3>With Search Open</h3>
-    Search Colors: <input id="three" name="three" type="color" /><br />
-    <small><em>Begins with a search box when there's no existing color.</em></small>
+<a-brick>
+  <h3>Initial Color Value</h3>
+  Change Color: <input id="two" name="two" type="color" value="#2a7e19" />
 
-    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; /&gt;
+  <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; value=&quot;#2a7e19&quot; /&gt;
+
+&lt;script&gt;
+  $(&#39;input[type=&quot;color&quot;]&#39;).namedColorPicker();
+&lt;/script&gt;
+</code></pre>
+</a-brick>
+
+<a-brick>
+  <h3>With Search Open</h3>
+  Search Colors: <input id="three" name="three" type="color" /><br />
+  <small><em>Begins with a search box when there's no existing color.</em></small>
+
+  <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; /&gt;
 
 &lt;script&gt;
   $(&#39;input[type=&quot;color&quot;]&#39;).namedColorPicker({ openSearch: true });
 &lt;/script&gt;
 </code></pre>
-  </a-brick>
+</a-brick>
 
-  <a-brick>
-    <h3>Hidden Color Codes</h3>
-    Change Color: <input id="four" name="four" type="color" value="#714ab2" /><br />
-    <small><em>Clicking on a color shows the title only.</em></small>
+<a-brick>
+  <h3>Hidden Color Codes</h3>
+  Change Color: <input id="four" name="four" type="color" value="#714ab2" /><br />
+  <small><em>Clicking on a color shows the title only.</em></small>
 
-    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;text&quot; value=&quot;#714ab2&quot; /&gt;
+  <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;text&quot; value=&quot;#714ab2&quot; /&gt;
 
 &lt;script&gt;
   $(&#39;input[type=&quot;color&quot;]&#39;).namedColorPicker({ showCodes: false });
 &lt;/script&gt;
 </code></pre>
-  </a-brick>
+</a-brick>
 
-  <a-brick>
-    <h3>Text Input</h3>
-    Enter Color Name (or Hex Code): <input id="five" name="five" type="text" value="#647d8e" class="b#gray #radius" /><br />
-    <small><em>Note: A hidden input field holds the hex color code.</em></small>
+<a-brick>
+  <h3>Text Input</h3>
+  Enter Color Name (or Hex Code): <input id="five" name="five" type="text" value="#647d8e" class="b#gray #radius" /><br />
+  <small><em>Note: A hidden input field holds the hex color code.</em></small>
 
-    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;text&quot; value=&quot;#647d8e&quot; /&gt;
+  <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;text&quot; value=&quot;#647d8e&quot; /&gt;
 
 &lt;script&gt;
   $(&#39;input[type=&quot;text&quot;]&#39;).namedColorPicker();
 &lt;/script&gt;
 </code></pre>
-  </a-brick>
+</a-brick>
 
-  <a-brick>
-    <h3>Colorize Swatch Only (Not Text Field)</h3>
-    Enter Color Name (or Hex Code): <input id="six" name="six" type="text" value="#b9cc81" class="#radius" /><br />
-    <small><em>Note: A hidden input field holds the hex color code.</em></small>
+<a-brick>
+  <h3>Colorize Swatch Only (Not Text Field)</h3>
+  Enter Color Name (or Hex Code): <input id="six" name="six" type="text" value="#b9cc81" class="#radius" /><br />
+  <small><em>Note: A hidden input field holds the hex color code.</em></small>
 
-    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;text&quot; value=&quot;#b9cc81&quot; /&gt;
+  <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;text&quot; value=&quot;#b9cc81&quot; /&gt;
 
 &lt;script&gt;
   $(&#39;input[type=&quot;text&quot;]&#39;).namedColorPicker({ colorizeElement: false });
 &lt;/script&gt;
 </code></pre>
-  </a-brick>
+</a-brick>
 
-  <a-brick>
-    <h3>Open Via JavaScript</h3>
-    Change Color: <input id="seven" name="seven" type="color" value="#658cbb" />
-    <small><em><a id="seven-open" href="#">click here to open</a></em></small>
+<a-brick>
+  <h3>Open Via JavaScript</h3>
+  Change Color: <input id="seven" name="seven" type="color" value="#658cbb" />
+  <small><em><a id="seven-open" href="#">click here to open</a></em></small>
 
-    <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; value=&quot;#658cbb&quot; /&gt;
+  <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; value=&quot;#658cbb&quot; /&gt;
 &lt;a class=&quot;open&quot; href=&quot;#&quot;&gt;click here to open&lt;/a&gt;
 
 &lt;script&gt;
@@ -148,31 +161,31 @@
   });
 &lt;/script&gt;
 </code></pre>
-  </a-brick>
+</a-brick>
 
-  <a-brick>
-    <h3>Stand-Alone Mode</h3>
-    Inherits 100% width of a container element.
+<a-brick>
+  <h3>Stand-Alone Mode</h3>
+  Inherits 100% width of a container element.
 
-    <div style="width:300px; max-width:100%;">
-      <input id="eight" name="eight" type="color" value="#7c7631" />
-    </div>
+  <div style="width:300px; max-width:100%;">
+    <input id="eight" name="eight" type="color" value="#7c7631" />
+  </div>
 
-    <pre class="hljs-pre code"><code class="lang-html">&lt;div style=&quot;width:300px; max-width:100%;&quot;&gt;
+  <pre class="hljs-pre code"><code class="lang-html">&lt;div style=&quot;width:300px; max-width:100%;&quot;&gt;
   &lt;input type=&quot;color&quot; value=&quot;#7c7631&quot; /&gt;
 &lt;/div&gt;
 &lt;script&gt;
   $(&#39;input[type=&quot;color&quot;]&#39;).namedColorPicker({ mode: &#39;stand-alone&#39; });
 &lt;/script&gt;
 </code></pre>
-  </a-brick>
+</a-brick>
 
-  <hr />
+<hr />
 
-  <h2>Documentation</h2>
+<h2>Documentation</h2>
 
-  <a-brick>
-    <h3 id="j2h.configuration-options">Configuration Options</h3>
+<a-brick>
+  <h3 id="j2h.configuration-options">Configuration Options</h3>
 <pre class="hljs-pre code"><code class="lang-html">&lt;script&gt;
   $(&#39;input[type=&quot;color&quot;]&#39;)
     .namedColorPicker({
@@ -384,23 +397,22 @@ namedColorPicker.setSelectedColor(&#39;#7b3801&#39;);
 <p>This is as simple as setting the <code>value=&quot;&quot;</code> attribute in your markup. The color picker will read this attribute and handle the rest for you automatically; i.e., making sure the initial color picker swatch matches the starting color value in your HTML markup.</p>
 <pre class="hljs-pre code"><code class="lang-html">&lt;input type=&quot;color&quot; value=&quot;#000000&quot;&gt;
 </code></pre>
-  </a-brick>
-
-</content-body>
+</a-brick>
 
 
 
+                </content-body>
               </a-container>
             </structure-body>
 
-            <footer class="#m:t3 #b:t5 !#radius #secondary #p:2 #a:center">
+            <footer class="#m:t3 #b:t5 !#radius #blue #p:2 #a:center">
               <h5>
                 Named Color Picker
-                <sub>jQuery color picker w/ 2,065 named colors, mobile-friendly.</sub>
+                <sub>jQuery color picker w/ 2,065 colors, mobile-friendly.</sub>
               </h5>
-              <div class="#m:b.25"><a href="https://www.npmjs.com/package/named-color-picker"><img src="https://nodei.co/npm/named-color-picker.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="npm overview" height="69" valign="middle" style="height:69px; vertical-align:middle;" /></a></div>
-              <div class="#m:b.25"><a href="https://github.com/src-works/named-color-picker/blob/master/CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.0.6-orange.svg" alt="latest version" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/dist/scripts/js/index.web.min.js"><img src="https://img.shields.io/github/size/src-works/named-color-picker/dist/scripts/js/index.web.min.js.svg" alt="browser script size" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/dist/scripts/ts/types/index.d.ts"><img src="https://img.shields.io/badge/%f0%9f%93%98-typescript%2fjs-2882C3.svg" alt="typescript/js" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/issues"><img src="https://img.shields.io/github/issues/src-works/named-color-picker.svg" alt="open issues" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a></div>
-              <div><a href="https://greenkeeper.io/"><img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg" alt="greenkeeper" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://david-dm.org/src-works/named-color-picker"><img src="https://img.shields.io/david/src-works/named-color-picker.svg" alt="dependency status" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://twitter.com/_src_works"><img src="https://img.shields.io/twitter/follow/_src_works.svg?style=social&amp;label=Follow%20%40_src_works" alt="follow on twitter" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker"><img src="https://img.shields.io/github/followers/src-works.svg?style=social&amp;label=Follow" alt="follow on github" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/fork"><img src="https://img.shields.io/github/forks/src-works/named-color-picker.svg?style=social&amp;label=Fork" alt="fork" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a></div>
+              <div class="#m:b.25"><a href="https://github.com/src-works/named-color-picker/blob/master/CHANGELOG.md"><img src="https://img.shields.io/badge/%f0%9f%93%a6_version-0.0.6-orange.svg" alt="latest version" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/dist/scripts/js/index.web.min.js"><img src="https://img.shields.io/github/size/src-works/named-color-picker/dist/scripts/js/index.web.min.js.svg" alt="browser script size" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/blob/master/dist/scripts/ts/types/index.d.ts"><img src="https://img.shields.io/badge/%f0%9f%93%98-typescript%2fjs-2882C3.svg" alt="typescript/js" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/issues"><img src="https://img.shields.io/github/issues/src-works/named-color-picker.svg" alt="open issues" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a></div>
+              <div class="#m:b.25"><a href="https://greenkeeper.io/"><img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg" alt="greenkeeper" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://david-dm.org/src-works/named-color-picker"><img src="https://img.shields.io/david/src-works/named-color-picker.svg" alt="dependency status" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://twitter.com/_src_works"><img src="https://img.shields.io/twitter/follow/_src_works.svg?style=social&amp;label=Follow%20%40_src_works" alt="follow on twitter" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker"><img src="https://img.shields.io/github/followers/src-works.svg?style=social&amp;label=Follow" alt="follow on github" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a> <a href="https://github.com/src-works/named-color-picker/fork"><img src="https://img.shields.io/github/forks/src-works/named-color-picker.svg?style=social&amp;label=Fork" alt="fork" height="20" valign="middle" style="height:20px; vertical-align:middle;" /></a></div>
+              <div><a href="https://www.npmjs.com/package/named-color-picker"><img src="https://nodei.co/npm/named-color-picker.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="npm overview" height="69" valign="middle" style="height:69px; vertical-align:middle;" /></a> <a href="https://www.npmjs.com/package/named-color-picker"><img src="https://nodei.co/npm-dl/named-color-picker.png?months=1&amp;height=2" alt="npm downloads" height="69" valign="middle" style="height:69px; vertical-align:middle;" /></a></div>
             </footer>
 
           </a-structure>
@@ -418,7 +430,7 @@ namedColorPicker.setSelectedColor(&#39;#7b3801&#39;);
     
 
     <script src="https://unpkg.com/chop-chop@latest"></script>
-    <script src="https://src.works/wp-content/themes/src-works/src/client-s/js/offsite/index.min.js"></script>
+    <script src="https://src.works/wp-content/themes/src-works/src/client-s/js/offsite/~v0.0.1/index.min.js"></script>
 
     
   <script>
